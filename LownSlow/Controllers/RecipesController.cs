@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LownSlow.Data;
 using LownSlow.Models;
 using Microsoft.AspNetCore.Identity;
+using LownSlow.Models.RecipeViewModels;
 
 namespace LownSlow.Controllers
 {
@@ -32,9 +33,10 @@ namespace LownSlow.Controllers
             var currentUser = await GetCurrentUserAsync();
 
             //Sort through all recipes recipes and return only those that match the condition where UserId == currentUser.Id
-            var applicationDbContext = _context.Recipe.Include(r => r.IngredientLists).Include(r => r.User).Where(r => r.UserId == currentUser.Id);
+            var applicationDbContext = _context.Recipe.Include(r => r.IngredientLists).Where(r => r.UserId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
+
 
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -55,9 +57,19 @@ namespace LownSlow.Controllers
         }
 
         // GET: Recipes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+
+            ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");
+
+            var currentUser = await GetCurrentUserAsync();
+
+            var viewModel = new RecipeCreateViewModel
+            {
+                AvailableIngredients = await _context.Ingredient.ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
         // POST: Recipes/Create
