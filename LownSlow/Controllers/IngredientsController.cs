@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Author: Michael Yankura
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,23 +9,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LownSlow.Data;
 using LownSlow.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LownSlow.Controllers
 {
     public class IngredientsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public IngredientsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public IngredientsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        //Get the current user so that only their data will appear.
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Ingredient.Include(i => i.User);
             return View(await applicationDbContext.ToListAsync());
+
+
         }
 
         // GET: Ingredients/Details/5
