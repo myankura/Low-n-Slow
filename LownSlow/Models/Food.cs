@@ -9,27 +9,27 @@ namespace LownSlow.Models
     public class Food
     {
         [Key]
-        [Display(Name = "Food")]
+        [Display(Name = "Food Id")]
         public int FoodId { get; set; }
 
         [Required]
         public string Name { get; set; }
-
 
         public string Description { get; set; }
 
         [Display(Name ="Food Type")]
         public string Type { get; set; }
 
-        [Display(Name = "Cooking Time")]
-        public DateTime CookTime { get; set; }
+        public int MinCookTime { get; set; }
 
-        [Display(Name = "Cooking Temperature")]
-        public int CookTemp { get; set; }
+        public int MaxCookTime { get; set; }
 
-        [Display(Name = "Finished Temperature")]
-        public string FinishedTemp { get; set; }
+        public int MinCookTemp { get; set; }
 
+        public int MaxCookTemp { get; set; }
 
+        public int MinFinishedTemp { get; set; }
+
+        public int MaxFinishedTemp { get; set; }
     }
 }

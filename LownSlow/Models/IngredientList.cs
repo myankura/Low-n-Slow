@@ -8,13 +8,13 @@ namespace LownSlow.Models
 {
     public class IngredientList
     {
+        [Key]
+        public int IngredientListId { get; set; }
 
         public Ingredient Ingredient { get; set; }
 
         public Recipe Recipe { get; set; }
 
-        [Key]
-        public int IngredientListId { get; set; }
 
         [Required]
         public int Quantity { get; set; }
