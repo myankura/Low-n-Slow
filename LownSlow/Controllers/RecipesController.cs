@@ -7,22 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LownSlow.Data;
 using LownSlow.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LownSlow.Controllers
 {
     public class RecipesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RecipesController(ApplicationDbContext context)
+
+        public RecipesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Recipe.ToListAsync());
+            //Get current user's UserId.
+            var currentUser = await GetCurrentUserAsync();
+
+            //Sort through all recipes recipes and return only those that match the condition where UserId == currentUser.Id
+            var applicationDbContext = _context.Recipe.Include(r => r.IngredientLists).Include(r => r.User).Where(r => r.UserId == currentUser.Id);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Recipes/Details/5

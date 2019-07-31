@@ -30,6 +30,9 @@ namespace LownSlow.Models
         public string  UserId { get; set; }
 
         [Required]
+        public ApplicationUser User { get; set; }
+
+        [Required]
         public int TechniqueId { get; set; }
 
         public virtual ICollection<IngredientList> IngredientLists { get; set; }
