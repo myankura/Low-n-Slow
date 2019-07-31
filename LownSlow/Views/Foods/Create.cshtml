@@ -1,0 +1,73 @@
+﻿@model LownSlow.Models.Food
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Food</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinCookTime" class="control-label"></label>
+                <input asp-for="MinCookTime" class="form-control" />
+                <span asp-validation-for="MinCookTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxCookTime" class="control-label"></label>
+                <input asp-for="MaxCookTime" class="form-control" />
+                <span asp-validation-for="MaxCookTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinCookTemp" class="control-label"></label>
+                <input asp-for="MinCookTemp" class="form-control" />
+                <span asp-validation-for="MinCookTemp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxCookTemp" class="control-label"></label>
+                <input asp-for="MaxCookTemp" class="form-control" />
+                <span asp-validation-for="MaxCookTemp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinFinishedTemp" class="control-label"></label>
+                <input asp-for="MinFinishedTemp" class="form-control" />
+                <span asp-validation-for="MinFinishedTemp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxFinishedTemp" class="control-label"></label>
+                <input asp-for="MaxFinishedTemp" class="form-control" />
+                <span asp-validation-for="MaxFinishedTemp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
