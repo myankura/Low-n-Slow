@@ -15,6 +15,8 @@ namespace LownSlow.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
+
         public RecipesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -26,7 +28,10 @@ namespace LownSlow.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
+            //Get current user's UserId.
             var currentUser = await GetCurrentUserAsync();
+
+            //Sort through all recipes recipes and return only those that match the condition where UserId == currentUser.Id
             var applicationDbContext = _context.Recipe.Include(r => r.IngredientLists).Include(r => r.User).Where(r => r.UserId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
