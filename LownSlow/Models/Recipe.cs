@@ -27,6 +27,9 @@ namespace LownSlow.Models
         public bool Favorite { get; set; }
 
         [Required]
+        public ApplicationUser User { get; set; }
+
+        [Required]
         public string  UserId { get; set; }
 
         [Required]
