@@ -7,22 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LownSlow.Data;
 using LownSlow.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LownSlow.Controllers
 {
     public class TechniquesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TechniquesController(ApplicationDbContext context)
+        public TechniquesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Techniques
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Technique.ToListAsync());
+            //Get current user's UserId
+            var currentUser = await GetCurrentUserAsync();
+            var userTechniques = _context.Technique.Where(t => t.UserId == currentUser.Id);
+
+            return View(await userTechniques.ToListAsync());
         }
 
         // GET: Techniques/Details/5
