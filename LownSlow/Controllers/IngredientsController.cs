@@ -1,6 +1,4 @@
-﻿//Author: Michael Yankura
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +15,7 @@ namespace LownSlow.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         public IngredientsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -29,10 +28,11 @@ namespace LownSlow.Controllers
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Ingredient.Include(i => i.User);
+            //Get current user's UserId.
+            var currentUser = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Ingredient.Include(i => i.IngredientLists).Where(i => i.UserId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
-
-
         }
 
         // GET: Ingredients/Details/5

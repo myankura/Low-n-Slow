@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LownSlow.Data;
 using LownSlow.Models;
 using Microsoft.AspNetCore.Identity;
+using LownSlow.Models.RecipeViewModels;
 
 namespace LownSlow.Controllers
 {
@@ -15,7 +16,6 @@ namespace LownSlow.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-
 
         public RecipesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -32,9 +32,10 @@ namespace LownSlow.Controllers
             var currentUser = await GetCurrentUserAsync();
 
             //Sort through all recipes recipes and return only those that match the condition where UserId == currentUser.Id
-            var applicationDbContext = _context.Recipe.Include(r => r.IngredientLists).Include(r => r.User).Where(r => r.UserId == currentUser.Id);
+            var applicationDbContext = _context.Recipe.Include(r => r.IngredientLists).Where(r => r.UserId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
+
 
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -55,17 +56,25 @@ namespace LownSlow.Controllers
         }
 
         // GET: Recipes/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var currentUser = await GetCurrentUserAsync();
+            
+
+            ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");
+
+            var viewModel = new RecipeCreateViewModel
+            {
+                AvailableIngredients = await _context.Ingredient.ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
         // POST: Recipes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,Title,Description,Directions,Comment,Favorite,UserId,TechniqueId")] Recipe recipe)
+        public async Task<IActionResult> Create( Recipe recipe)
         {
             if (ModelState.IsValid)
             {
@@ -93,11 +102,10 @@ namespace LownSlow.Controllers
         }
 
         // POST: Recipes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,Title,Description,Directions,Comment,Favorite,UserId,TechniqueId")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, Recipe recipe)
         {
             if (id != recipe.RecipeId)
             {
