@@ -40,26 +40,43 @@ namespace LownSlow.Controllers
         // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
+            RecipeIngredientsViewModel viewmodel = new RecipeIngredientsViewModel();
+            
+            var currentUser = await GetCurrentUserAsync();
+            
+            var recipe = await _context.Recipe.Include(r => r.User)
+                                        .Include(r => r.IngredientLists)
+                                        .ThenInclude(il => il.Ingredient)
+                                        .FirstOrDefaultAsync(il => il.UserId == currentUser.Id);
+
+            viewmodel.Recipe = recipe;
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipe = await _context.Recipe
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipe == null)
             {
                 return NotFound();
             }
 
-            return View(recipe);
+            /*model.IngredientList = recipe.IngredientLists
+               .GroupBy(il => il.Ingredient)
+               .Select(il => new IngredientList
+               {
+                   Ingredient = il.Key,
+                   Quantity = 
+               }).ToList();*/
+            return View(viewmodel);
         }
 
         // GET: Recipes/Create
         public async Task<IActionResult> Create()
         {
             var currentUser = await GetCurrentUserAsync();
-            
+
 
             ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");
 
@@ -74,7 +91,7 @@ namespace LownSlow.Controllers
         // POST: Recipes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Recipe recipe)
+        public async Task<IActionResult> Create(Recipe recipe)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +119,7 @@ namespace LownSlow.Controllers
         }
 
         // POST: Recipes/Edit/5
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Recipe recipe)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LownSlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190731170925_initial")]
+    [Migration("20190801191041_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,7 @@ namespace LownSlow.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4d10d909-f249-45e3-865b-81cb2ef8d8a1",
+                            ConcurrencyStamp = "4c098dc9-e773-4b03-a627-93b852271bfd",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -90,7 +90,7 @@ namespace LownSlow.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOlTtMQHgxE5mwN2wWEM5IwKrHxTwV1xrqcM9lfWXoqFx5dzLLqaJv4R3YXBYJyRBw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECNkp4EJPx7ORysYMG5HQO8neMB6W2rZrgZsGwpvGMxNMrhoyfyQc0GPc72Hjv/U8Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -100,7 +100,7 @@ namespace LownSlow.Migrations
                         {
                             Id = "11111111-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "609076a3-7524-4433-8145-af90cc08497a",
+                            ConcurrencyStamp = "5139d339-0532-4bc2-b31b-d112d9e1da9d",
                             Email = "michael@me.com",
                             EmailConfirmed = true,
                             FirstName = "Michael",
@@ -108,7 +108,7 @@ namespace LownSlow.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MICHAEL@ME.COM",
                             NormalizedUserName = "MICHAEL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENJV66iGMz/Whq3ZGbBpbBpqF7TPBjuxL+WEPwEoM1cGARSz3NtbrWep+TmH8Vy48A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGHcO8E8Locxc3oxCuCT/A+D8x0keZXr2LJT1BJoJT1VHekLuRwfZ6W3rAn68QiAVw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "j4k6l3k0-d87f-98eh-10kk-2285db796699",
                             TwoFactorEnabled = false,
@@ -778,7 +778,7 @@ namespace LownSlow.Migrations
                             IngredientId = 1,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -786,7 +786,7 @@ namespace LownSlow.Migrations
                             IngredientId = 2,
                             Measurement = "Tbsp",
                             Quantity = 5,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -794,7 +794,7 @@ namespace LownSlow.Migrations
                             IngredientId = 3,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -802,7 +802,7 @@ namespace LownSlow.Migrations
                             IngredientId = 5,
                             Measurement = "Tbsp",
                             Quantity = 6,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -810,7 +810,7 @@ namespace LownSlow.Migrations
                             IngredientId = 6,
                             Measurement = "Tbsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -818,7 +818,7 @@ namespace LownSlow.Migrations
                             IngredientId = 7,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -826,7 +826,7 @@ namespace LownSlow.Migrations
                             IngredientId = 9,
                             Measurement = "lbs",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 2
                         },
                         new
                         {
@@ -834,7 +834,7 @@ namespace LownSlow.Migrations
                             IngredientId = 10,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -842,7 +842,7 @@ namespace LownSlow.Migrations
                             IngredientId = 11,
                             Measurement = "Tbsp",
                             Quantity = 5,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -850,7 +850,7 @@ namespace LownSlow.Migrations
                             IngredientId = 12,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -858,7 +858,7 @@ namespace LownSlow.Migrations
                             IngredientId = 13,
                             Measurement = "tsp",
                             Quantity = 5,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -866,7 +866,7 @@ namespace LownSlow.Migrations
                             IngredientId = 14,
                             Measurement = "Tbsp",
                             Quantity = 6,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -874,7 +874,7 @@ namespace LownSlow.Migrations
                             IngredientId = 15,
                             Measurement = "Tbsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -882,7 +882,7 @@ namespace LownSlow.Migrations
                             IngredientId = 16,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -890,7 +890,7 @@ namespace LownSlow.Migrations
                             IngredientId = 17,
                             Measurement = "lbs",
                             Quantity = 1,
-                            RecipeId = 1
+                            RecipeId = 3
                         },
                         new
                         {
@@ -898,7 +898,7 @@ namespace LownSlow.Migrations
                             IngredientId = 10,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 4
                         },
                         new
                         {
@@ -906,7 +906,7 @@ namespace LownSlow.Migrations
                             IngredientId = 11,
                             Measurement = "Tbsp",
                             Quantity = 5,
-                            RecipeId = 1
+                            RecipeId = 4
                         },
                         new
                         {
@@ -914,7 +914,7 @@ namespace LownSlow.Migrations
                             IngredientId = 12,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 4
                         },
                         new
                         {
@@ -922,7 +922,7 @@ namespace LownSlow.Migrations
                             IngredientId = 14,
                             Measurement = "Tbsp",
                             Quantity = 6,
-                            RecipeId = 1
+                            RecipeId = 4
                         },
                         new
                         {
@@ -930,7 +930,7 @@ namespace LownSlow.Migrations
                             IngredientId = 15,
                             Measurement = "Tbsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 4
                         },
                         new
                         {
@@ -938,7 +938,7 @@ namespace LownSlow.Migrations
                             IngredientId = 16,
                             Measurement = "tsp",
                             Quantity = 10,
-                            RecipeId = 1
+                            RecipeId = 4
                         },
                         new
                         {
@@ -946,7 +946,7 @@ namespace LownSlow.Migrations
                             IngredientId = 18,
                             Measurement = "lbs",
                             Quantity = 1,
-                            RecipeId = 1
+                            RecipeId = 4
                         });
                 });
 
@@ -955,8 +955,6 @@ namespace LownSlow.Migrations
                     b.Property<int>("RecipeId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Comment");
 
@@ -978,7 +976,7 @@ namespace LownSlow.Migrations
 
                     b.HasKey("RecipeId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Recipe");
 
@@ -1223,9 +1221,10 @@ namespace LownSlow.Migrations
 
             modelBuilder.Entity("LownSlow.Models.Recipe", b =>
                 {
-                    b.HasOne("LownSlow.Models.ApplicationUser")
+                    b.HasOne("LownSlow.Models.ApplicationUser", "User")
                         .WithMany("Recipes")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LownSlow.Models.Technique", b =>

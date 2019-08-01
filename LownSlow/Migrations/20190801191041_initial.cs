@@ -208,18 +208,17 @@ namespace LownSlow.Migrations
                     Comment = table.Column<string>(nullable: true),
                     Favorite = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    TechniqueId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    TechniqueId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipe", x => x.RecipeId);
                     table.ForeignKey(
-                        name: "FK_Recipe_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Recipe_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -284,8 +283,8 @@ namespace LownSlow.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "4d10d909-f249-45e3-865b-81cb2ef8d8a1", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOlTtMQHgxE5mwN2wWEM5IwKrHxTwV1xrqcM9lfWXoqFx5dzLLqaJv4R3YXBYJyRBw==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" },
-                    { "11111111-ffff-ffff-ffff-ffffffffffff", 0, "609076a3-7524-4433-8145-af90cc08497a", "michael@me.com", true, "Michael", "Yankura", false, null, "MICHAEL@ME.COM", "MICHAEL@GMAIL.COM", "AQAAAAEAACcQAAAAENJV66iGMz/Whq3ZGbBpbBpqF7TPBjuxL+WEPwEoM1cGARSz3NtbrWep+TmH8Vy48A==", null, false, "j4k6l3k0-d87f-98eh-10kk-2285db796699", false, "michael@gmail.com" }
+                    { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "4c098dc9-e773-4b03-a627-93b852271bfd", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAECNkp4EJPx7ORysYMG5HQO8neMB6W2rZrgZsGwpvGMxNMrhoyfyQc0GPc72Hjv/U8Q==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" },
+                    { "11111111-ffff-ffff-ffff-ffffffffffff", 0, "5139d339-0532-4bc2-b31b-d112d9e1da9d", "michael@me.com", true, "Michael", "Yankura", false, null, "MICHAEL@ME.COM", "MICHAEL@GMAIL.COM", "AQAAAAEAACcQAAAAEGHcO8E8Locxc3oxCuCT/A+D8x0keZXr2LJT1BJoJT1VHekLuRwfZ6W3rAn68QiAVw==", null, false, "j4k6l3k0-d87f-98eh-10kk-2285db796699", false, "michael@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -293,7 +292,7 @@ namespace LownSlow.Migrations
                 columns: new[] { "FoodId", "Description", "MaxCookTemp", "MaxCookTime", "MaxFinishedTemp", "MinCookTemp", "MinCookTime", "MinFinishedTemp", "Name", "Type" },
                 values: new object[,]
                 {
-                    { 18, "Dark meat.", 350, 180, 175, 275, 120, 170, "Turkey leg", "Poultry" },
+                    { 19, "White meat.", 350, 270, 175, 275, 240, 165, "Turkey breast", "Poultry" },
                     { 20, "Wild birds.", 230, 90, 165, 225, 60, 160, "Quail/Pheasant", "Poultry" },
                     { 21, "A whole bird.", 250, 0, 170, 225, 240, 165, "Whole duck", "Poultry" },
                     { 22, "Wild caught salmon.", 350, 120, 150, 275, 90, 145, "Salmon filet", "Seafood" },
@@ -306,35 +305,24 @@ namespace LownSlow.Migrations
                     { 29, "Cajun blood sausage.", 240, 0, 0, 225, 120, 0, "Boudin", "Vegetable & Miscellaneous" },
                     { 30, "Smoked brats.", 240, 120, 0, 225, 90, 0, "Brats", "Vegetable & Miscellaneous" },
                     { 31, "This time is pretty much the same for most cheeses.", 90, 240, 0, 80, 210, 0, "Smoked cheese", "Vegetable & Miscellaneous" },
-                    { 17, "Gobble Gobble.", 350, 300, 175, 275, 240, 170, "Whole turkey", "Poultry" },
+                    { 18, "Dark meat.", 350, 180, 175, 275, 120, 170, "Turkey leg", "Poultry" },
                     { 16, "White meat.", 350, 90, 175, 275, 75, 170, "Chicken wings", "Poultry" },
-                    { 19, "White meat.", 350, 270, 175, 275, 240, 165, "Turkey breast", "Poultry" },
+                    { 17, "Gobble Gobble.", 350, 300, 175, 275, 240, 170, "Whole turkey", "Poultry" },
+                    { 6, "I want my baby back, baby back ribs.", 250, 360, 190, 225, 300, 180, "Baby back ribs", "Pork" },
                     { 14, "A whole bird.", 350, 240, 175, 275, 180, 170, "Whole Chicken", "Poultry" },
-                    { 1, "This cut comes from the back of the cow.", 250, 240, 205, 225, 180, 190, "Back ribs", "Beef" },
-                    { 2, "A large slab of beef.", 250, 1200, 205, 225, 720, 190, "Brisket", "Beef" },
-                    { 3, "These ribs are short.", 250, 480, 200, 225, 360, 190, "Short Rib", "Beef" },
+                    { 13, "Lamb shank.", 250, 300, 195, 225, 240, 190, "Shank", "Lamb" },
+                    { 12, "Lamb shoulder.", 250, 330, 175, 225, 300, 170, "Shoulder", "Lamb" },
+                    { 11, "A leg from a lamb.", 250, 480, 150, 225, 240, 140, "Leg", "Lamb" },
+                    { 10, "A tender cut of pork, hence the name.", 250, 180, 165, 225, 150, 160, "Pork Tenderloin", "Pork" },
+                    { 9, "Pork sausage.", 250, 180, 170, 225, 60, 165, "Sausage", "Pork" },
+                    { 8, "Throw a whole pig on the smoker.", 250, 1080, 210, 225, 960, 205, "Whole hog", "Pork" },
+                    { 7, "Everyone loves bacon.", 0, 390, 150, 99, 360, 140, "Belly bacon", "Pork" },
                     { 15, "Dark meat.", 350, 240, 175, 275, 90, 170, "Chicken thighs", "Poultry" },
                     { 5, "A tender cut of meat.", 250, 180, 205, 225, 150, 190, "Tenderloin", "Beef" },
-                    { 6, "I want my baby back, baby back ribs.", 250, 360, 190, 225, 300, 180, "Baby back ribs", "Pork" },
-                    { 7, "Everyone loves bacon.", 0, 390, 150, 99, 360, 140, "Belly bacon", "Pork" },
                     { 4, "Tender goodness, there's a reason why it's so expensive.", 250, 120, 145, 225, 60, 140, "Prime rib", "Beef" },
-                    { 9, "Pork sausage.", 250, 180, 170, 225, 60, 165, "Sausage", "Pork" },
-                    { 10, "A tender cut of pork, hence the name.", 250, 180, 165, 225, 150, 160, "Pork Tenderloin", "Pork" },
-                    { 11, "A leg from a lamb.", 250, 480, 150, 225, 240, 140, "Leg", "Lamb" },
-                    { 12, "Lamb shoulder.", 250, 330, 175, 225, 300, 170, "Shoulder", "Lamb" },
-                    { 13, "Lamb shank.", 250, 300, 195, 225, 240, 190, "Shank", "Lamb" },
-                    { 8, "Throw a whole pig on the smoker.", 250, 1080, 210, 225, 960, 205, "Whole hog", "Pork" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Recipe",
-                columns: new[] { "RecipeId", "ApplicationUserId", "Comment", "Description", "Directions", "Favorite", "TechniqueId", "Title", "UserId" },
-                values: new object[,]
-                {
-                    { 1, null, "Well, it was edible", "A bird that has been cooked in smoke for at a low temperature", "Stuff happens here", false, 1, "BBQ Chicken", "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 2, null, "I would recommend this to a friend", "Damn that was good", "Stuff happens here", true, 2, "Smoked Salamon", "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 3, null, "Best damn chicken I've ever had", "A hickory smoked bird bathed in BBQ sauce", "Stuff happens here", false, 1, "BBQ Chicken", "11111111-ffff-ffff-ffff-ffffffffffff" },
-                    { 4, null, "I would recommend this to a friend", "Damn that was good", "Stuff happens here", true, 2, "Smoked Salamon", "00000000-ffff-ffff-ffff-ffffffffffff" }
+                    { 3, "These ribs are short.", 250, 480, 200, 225, 360, 190, "Short Rib", "Beef" },
+                    { 2, "A large slab of beef.", 250, 1200, 205, 225, 720, 190, "Brisket", "Beef" },
+                    { 1, "This cut comes from the back of the cow.", 250, 240, 205, 225, 180, 190, "Back ribs", "Beef" }
                 });
 
             migrationBuilder.InsertData(
@@ -342,9 +330,9 @@ namespace LownSlow.Migrations
                 columns: new[] { "TechniqueId", "ApplicationUserId", "Description", "Name", "UserId" },
                 values: new object[,]
                 {
+                    { 2, null, "Uses wood dust to keep an ember smoldering at a low temperature around 100 - 140F", "Cold Smoke", "00000000-ffff-ffff-ffff-ffffffffffff" },
                     { 3, null, "Uses charcoal and wood to smoke food at a temperature between 190F - 350F", "Regular Smoke", "11111111-ffff-ffff-ffff-ffffffffffff" },
                     { 1, null, "Uses charcoal and wood to smoke food at a temperature between 190F - 350F", "Regular Smoke", "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 2, null, "Uses wood dust to keep an ember smoldering at a low temperature around 100 - 140F", "Cold Smoke", "00000000-ffff-ffff-ffff-ffffffffffff" },
                     { 4, null, "Uses powdered wood to keep an ember smoldering at a low temperature around 100 - 140F", "Cold Smoke", "11111111-ffff-ffff-ffff-ffffffffffff" }
                 });
 
@@ -354,13 +342,13 @@ namespace LownSlow.Migrations
                 values: new object[,]
                 {
                     { 1, "Salt", "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 16, "Better Onion Powder", "11111111-ffff-ffff-ffff-ffffffffffff" },
-                    { 15, "Better Garlic Powder", "11111111-ffff-ffff-ffff-ffffffffffff" },
-                    { 14, "Better Cayenne", "11111111-ffff-ffff-ffff-ffffffffffff" },
                     { 13, "Better Apple Cider Vinegar", "11111111-ffff-ffff-ffff-ffffffffffff" },
                     { 12, "Better Pepper", "11111111-ffff-ffff-ffff-ffffffffffff" },
                     { 11, "Better Sugar", "11111111-ffff-ffff-ffff-ffffffffffff" },
                     { 10, "Better Salt", "11111111-ffff-ffff-ffff-ffffffffffff" },
+                    { 16, "Better Onion Powder", "11111111-ffff-ffff-ffff-ffffffffffff" },
+                    { 18, "Salamon filet", "11111111-ffff-ffff-ffff-ffffffffffff" },
+                    { 17, "Whole Chicken", "11111111-ffff-ffff-ffff-ffffffffffff" },
                     { 9, "Salmon filet", "00000000-ffff-ffff-ffff-ffffffffffff" },
                     { 8, "Whole Chicken", "00000000-ffff-ffff-ffff-ffffffffffff" },
                     { 7, "Onion Powder", "00000000-ffff-ffff-ffff-ffffffffffff" },
@@ -369,8 +357,19 @@ namespace LownSlow.Migrations
                     { 4, "Apple Cider Vinegar", "00000000-ffff-ffff-ffff-ffffffffffff" },
                     { 3, "Pepper", "00000000-ffff-ffff-ffff-ffffffffffff" },
                     { 2, "Sugar", "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 17, "Whole Chicken", "11111111-ffff-ffff-ffff-ffffffffffff" },
-                    { 18, "Salamon filet", "11111111-ffff-ffff-ffff-ffffffffffff" }
+                    { 14, "Better Cayenne", "11111111-ffff-ffff-ffff-ffffffffffff" },
+                    { 15, "Better Garlic Powder", "11111111-ffff-ffff-ffff-ffffffffffff" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipe",
+                columns: new[] { "RecipeId", "Comment", "Description", "Directions", "Favorite", "TechniqueId", "Title", "UserId" },
+                values: new object[,]
+                {
+                    { 2, "I would recommend this to a friend", "Damn that was good", "Stuff happens here", true, 2, "Smoked Salamon", "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 1, "Well, it was edible", "A bird that has been cooked in smoke for at a low temperature", "Stuff happens here", false, 1, "BBQ Chicken", "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 4, "I would recommend this to a friend", "Damn that was good", "Stuff happens here", true, 2, "Smoked Salamon", "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 3, "Best damn chicken I've ever had", "A hickory smoked bird bathed in BBQ sauce", "Stuff happens here", false, 1, "BBQ Chicken", "11111111-ffff-ffff-ffff-ffffffffffff" }
                 });
 
             migrationBuilder.InsertData(
@@ -379,35 +378,35 @@ namespace LownSlow.Migrations
                 values: new object[,]
                 {
                     { 1, null, 1, "tsp", 10, 1 },
-                    { 29, null, 16, "tsp", 10, 1 },
-                    { 22, null, 16, "tsp", 10, 1 },
-                    { 28, null, 15, "Tbsp", 10, 1 },
-                    { 21, null, 15, "Tbsp", 10, 1 },
-                    { 27, null, 14, "Tbsp", 6, 1 },
-                    { 20, null, 14, "Tbsp", 6, 1 },
-                    { 19, null, 13, "tsp", 5, 1 },
-                    { 26, null, 12, "tsp", 10, 1 },
-                    { 18, null, 12, "tsp", 10, 1 },
-                    { 25, null, 11, "Tbsp", 5, 1 },
-                    { 17, null, 11, "Tbsp", 5, 1 },
-                    { 24, null, 10, "tsp", 10, 1 },
-                    { 16, null, 10, "tsp", 10, 1 },
-                    { 15, null, 9, "lbs", 10, 1 },
+                    { 21, null, 15, "Tbsp", 10, 3 },
+                    { 20, null, 14, "Tbsp", 6, 3 },
+                    { 19, null, 13, "tsp", 5, 3 },
+                    { 18, null, 12, "tsp", 10, 3 },
+                    { 17, null, 11, "Tbsp", 5, 3 },
+                    { 16, null, 10, "tsp", 10, 3 },
+                    { 30, null, 18, "lbs", 1, 4 },
+                    { 29, null, 16, "tsp", 10, 4 },
+                    { 28, null, 15, "Tbsp", 10, 4 },
+                    { 27, null, 14, "Tbsp", 6, 4 },
+                    { 26, null, 12, "tsp", 10, 4 },
+                    { 25, null, 11, "Tbsp", 5, 4 },
+                    { 24, null, 10, "tsp", 10, 4 },
+                    { 15, null, 9, "lbs", 10, 2 },
+                    { 14, null, 7, "tsp", 10, 2 },
+                    { 13, null, 6, "Tbsp", 10, 2 },
+                    { 12, null, 5, "Tbsp", 6, 2 },
+                    { 11, null, 3, "tsp", 10, 2 },
+                    { 10, null, 2, "Tbsp", 5, 2 },
+                    { 9, null, 1, "tsp", 10, 2 },
                     { 8, null, 8, "lbs", 1, 1 },
-                    { 14, null, 7, "tsp", 10, 1 },
                     { 7, null, 7, "tsp", 10, 1 },
-                    { 13, null, 6, "Tbsp", 10, 1 },
                     { 6, null, 6, "Tbsp", 10, 1 },
-                    { 12, null, 5, "Tbsp", 6, 1 },
                     { 5, null, 5, "Tbsp", 6, 1 },
                     { 4, null, 4, "tsp", 5, 1 },
-                    { 11, null, 3, "tsp", 10, 1 },
                     { 3, null, 3, "tsp", 10, 1 },
-                    { 10, null, 2, "Tbsp", 5, 1 },
                     { 2, null, 2, "Tbsp", 5, 1 },
-                    { 9, null, 1, "tsp", 10, 1 },
-                    { 23, null, 17, "lbs", 1, 1 },
-                    { 30, null, 18, "lbs", 1, 1 }
+                    { 22, null, 16, "tsp", 10, 3 },
+                    { 23, null, 17, "lbs", 1, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -470,9 +469,9 @@ namespace LownSlow.Migrations
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipe_ApplicationUserId",
+                name: "IX_Recipe_UserId",
                 table: "Recipe",
-                column: "ApplicationUserId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Technique_ApplicationUserId",
