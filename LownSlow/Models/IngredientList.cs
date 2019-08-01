@@ -15,7 +15,6 @@ namespace LownSlow.Models
 
         public Recipe Recipe { get; set; }
 
-
         [Required]
         public int Quantity { get; set; }
 

@@ -1,11 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LownSlow.Models.RecipeViewModels
 {
     public class RecipeCreateViewModel
     {
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        //private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         public Recipe Recipe { get; set; }
         //public Ingredient Ingredient { get; set; }
@@ -17,14 +24,18 @@ namespace LownSlow.Models.RecipeViewModels
         {
             get
             {
-                if(AvailableIngredients == null)
+                //var currentUser =  GetCurrentUserAsync();
+
+                if (AvailableIngredients == null)
                 {
                     return null;
                 }
-
-                var il = AvailableIngredients?.Select(i => new SelectListItem(i.Name, i.IngredientId.ToString())).ToList();
-                il.Insert(0, new SelectListItem("Select an ingredient", null));
-                return il;
+                //if (Recipe.UserId == currentUser.Id)
+                //{
+                    var il = AvailableIngredients?.Select(i => new SelectListItem(i.Name, i.IngredientId.ToString())).ToList();
+                    il.Insert(0, new SelectListItem("Select an ingredient", null));
+                    return il;
+                //}
             }
         }
     }

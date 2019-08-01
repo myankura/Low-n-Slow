@@ -59,10 +59,10 @@ namespace LownSlow.Controllers
         // GET: Recipes/Create
         public async Task<IActionResult> Create()
         {
+            var currentUser = await GetCurrentUserAsync();
+            
 
             ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");
-
-            var currentUser = await GetCurrentUserAsync();
 
             var viewModel = new RecipeCreateViewModel
             {
@@ -73,11 +73,9 @@ namespace LownSlow.Controllers
         }
 
         // POST: Recipes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RecipeId,Title,Description,Directions,Comment,Favorite,UserId,TechniqueId")] Recipe recipe)
+        public async Task<IActionResult> Create( Recipe recipe)
         {
             if (ModelState.IsValid)
             {
@@ -105,11 +103,10 @@ namespace LownSlow.Controllers
         }
 
         // POST: Recipes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RecipeId,Title,Description,Directions,Comment,Favorite,UserId,TechniqueId")] Recipe recipe)
+        public async Task<IActionResult> Edit(int id, Recipe recipe)
         {
             if (id != recipe.RecipeId)
             {
