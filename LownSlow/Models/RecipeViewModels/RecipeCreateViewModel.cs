@@ -12,7 +12,7 @@ namespace LownSlow.Models.RecipeViewModels
     {
 
         private readonly UserManager<ApplicationUser> _userManager;
-        //private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        
 
         public Recipe Recipe { get; set; }
         //public Ingredient Ingredient { get; set; }
