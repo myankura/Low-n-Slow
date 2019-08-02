@@ -14,10 +14,10 @@ namespace LownSlow.Models
         [Display(Name = "Recipe Name")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage ="Please give the recipe a description.")]
+        [Required(ErrorMessage = "Please give the recipe a description.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage ="The recipe must have some directions")]
+        [Required(ErrorMessage = "The recipe must have some directions")]
         public string Directions { get; set; }
 
         public string Comment { get; set; }
@@ -30,7 +30,9 @@ namespace LownSlow.Models
         public ApplicationUser User { get; set; }
 
         [Required]
-        public string  UserId { get; set; }
+        public string UserId { get; set; }
+
+        public Technique Technique { get; set; }
 
         [Required]
         public int TechniqueId { get; set; }

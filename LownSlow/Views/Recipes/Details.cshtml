@@ -41,23 +41,23 @@
             @Html.DisplayFor(model => model.Recipe.Favorite)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Technique.Name)
+            @Html.DisplayNameFor(model => model.Recipe.Technique.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Technique.Name)
+            @Html.DisplayFor(model => model.Recipe.Technique.Name)
         </dd>
-
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Recipe.IngredientLists)
+        </dt>
         <dd class="col-sm-10">
             <ul>
                 @foreach (var item in Model.Recipe.IngredientLists)
                 {
                     <li>
+                        @Html.DisplayFor(model => item.Ingredient.Name)
+                        @Html.DisplayFor(model => item.Quantity)
+                        @Html.DisplayFor(model => item.Measurement)
 
-                        
-                            @Html.DisplayFor(model => item.Ingredient.Name)
-                            @Html.DisplayFor(model => item.Quantity)
-                            @Html.DisplayFor(model => item.Measurement)
-                        
                     </li>
                 }
             </ul>

@@ -45,7 +45,8 @@ namespace LownSlow.Controllers
 
             var currentUser = await GetCurrentUserAsync();
 
-            var recipe = await _context.Recipe.Include(r => r.User)
+            var recipe = await _context.Recipe.Include(r => r.Technique)
+                                              .Include(r => r.User)
                                               .Include(r => r.IngredientLists)
                                               .ThenInclude(il => il.Ingredient)
                                               .FirstOrDefaultAsync(il => il.UserId == currentUser.Id && il.RecipeId == id);
@@ -62,13 +63,6 @@ namespace LownSlow.Controllers
                 return NotFound();
             }
 
-            /*model.IngredientList = recipe.IngredientLists
-               .GroupBy(il => il.Ingredient)
-               .Select(il => new IngredientList
-               {
-                   Ingredient = il.Key,
-                   Quantity = 
-               }).ToList();*/
             return View(viewmodel);
         }
 
