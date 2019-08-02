@@ -9,6 +9,7 @@ namespace LownSlow.Models.RecipeViewModels
     {
         public Ingredient Ingredient { get; set; }
         public Recipe Recipe { get; set; }
+        public Technique Technique { get; set; }
         public IEnumerable<IngredientList> IngredientList { get; set; }
     }
 }

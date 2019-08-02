@@ -42,13 +42,13 @@ namespace LownSlow.Controllers
         {
 
             RecipeIngredientsViewModel viewmodel = new RecipeIngredientsViewModel();
-            
+
             var currentUser = await GetCurrentUserAsync();
-            
+
             var recipe = await _context.Recipe.Include(r => r.User)
-                                        .Include(r => r.IngredientLists)
-                                        .ThenInclude(il => il.Ingredient)
-                                        .FirstOrDefaultAsync(il => il.UserId == currentUser.Id);
+                                              .Include(r => r.IngredientLists)
+                                              .ThenInclude(il => il.Ingredient)
+                                              .FirstOrDefaultAsync(il => il.UserId == currentUser.Id && il.RecipeId == id);
 
             viewmodel.Recipe = recipe;
 

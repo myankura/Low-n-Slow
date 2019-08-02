@@ -18,6 +18,7 @@ namespace LownSlow.Models
         [Required(ErrorMessage = "Please give the technique a description")]
         public string Description { get; set; }
 
+        public ApplicationUser User { get; set; }
         public string UserId { get; set; }
     }
 }
