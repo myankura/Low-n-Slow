@@ -69,10 +69,11 @@ namespace LownSlow.Controllers
         // GET: Recipes/Create
         public async Task<IActionResult> Create()
         {
-            var currentUser = await GetCurrentUserAsync();
+            /*var currentUser = await GetCurrentUserAsync();*/
 
 
-            ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");
+           /*ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");*/
+
 
             var viewModel = new RecipeCreateViewModel
             {
@@ -85,15 +86,26 @@ namespace LownSlow.Controllers
         // POST: Recipes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Recipe recipe)
+        public async Task<IActionResult> Create(RecipeCreateViewModel viewModel)
         {
+            var currentUser = await GetCurrentUserAsync();
+            var recipe = viewModel.Recipe;
+
+            recipe.UserId = currentUser.Id;
+
+            ModelState.Remove("Recipe.User");
+            ModelState.Remove("Recipe.UserId");
+
             if (ModelState.IsValid)
             {
+
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(recipe);
+
+            viewModel.AvailableIngredients = await _context.Ingredient.ToListAsync();
+            return View(viewModel);
         }
 
         // GET: Recipes/Edit/5
