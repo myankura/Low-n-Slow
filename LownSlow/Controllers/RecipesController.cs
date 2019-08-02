@@ -50,7 +50,9 @@ namespace LownSlow.Controllers
                                               .ThenInclude(il => il.Ingredient)
                                               .FirstOrDefaultAsync(il => il.UserId == currentUser.Id && il.RecipeId == id);
 
-            viewmodel.Recipe = recipe;
+            
+
+            /*viewmodel.Recipe = recipe;*/
 
             if (id == null)
             {
