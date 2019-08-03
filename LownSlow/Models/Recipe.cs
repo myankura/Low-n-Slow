@@ -34,8 +34,8 @@ namespace LownSlow.Models
 
         public Technique Technique { get; set; }
 
-        [Required]
-        public int TechniqueId { get; set; }
+        
+        public int? TechniqueId { get; set; }
 
         public virtual ICollection<IngredientList> IngredientLists { get; set; }
 
