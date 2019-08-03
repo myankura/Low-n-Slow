@@ -25,11 +25,11 @@ namespace LownSlow.Models.RecipeViewModels
                     return null;
                 }
                 var technique = AvailableTech?.Select(t => new SelectListItem(t.Name, t.TechniqueId.ToString())).ToList();
-                technique.Insert(0, new SelectListItem("Select an ingredient", null));
+                technique.Insert(0, new SelectListItem("Select a technique", null));
                 return technique;
             }
         }
-        /*public List<Ingredient> AvailableIngredients { get; set; }
+        public List<Ingredient> AvailableIngredients { get; set; }
 
         public List<SelectListItem> IngredientOptions
         {
@@ -44,6 +44,6 @@ namespace LownSlow.Models.RecipeViewModels
                 il.Insert(0, new SelectListItem("Select an ingredient", null));
                 return il;
             }
-        }*/
+        }
     }
 }

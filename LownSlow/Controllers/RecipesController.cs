@@ -94,6 +94,11 @@ namespace LownSlow.Controllers
 
             var recipe = viewModel.Recipe;
 
+            
+            var ingredientList = viewModel.IngredientList;
+
+            _context.Add(ingredientList);
+
             ModelState.Remove("Recipe.User");
             ModelState.Remove("Recipe.UserId");
 
@@ -105,7 +110,11 @@ namespace LownSlow.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            //Adds a technique to the recipe
             viewModel.AvailableTech = await _context.Technique.ToListAsync();
+
+            //Adds an ingredient to the list
+            viewModel.AvailableIngredients = await _context.Ingredient.ToListAsync();
 
             /*//Instantiate new recipe from view model
             *//*var recipe = viewModel.Recipe;*//*
