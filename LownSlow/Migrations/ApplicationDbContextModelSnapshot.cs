@@ -80,7 +80,7 @@ namespace LownSlow.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "611da658-0996-42a9-aea6-019a245a02f7",
+                            ConcurrencyStamp = "4c098dc9-e773-4b03-a627-93b852271bfd",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -88,7 +88,7 @@ namespace LownSlow.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEnTS0Gbs2OHvMDG3+2V5qKytSF/MdjIHNpDG9YSqDWv+N+qK5Kg11zekhr5E5+6MA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECNkp4EJPx7ORysYMG5HQO8neMB6W2rZrgZsGwpvGMxNMrhoyfyQc0GPc72Hjv/U8Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -98,7 +98,7 @@ namespace LownSlow.Migrations
                         {
                             Id = "11111111-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe5fb388-4dd1-40c0-bfbb-d08491b4e7df",
+                            ConcurrencyStamp = "5139d339-0532-4bc2-b31b-d112d9e1da9d",
                             Email = "michael@me.com",
                             EmailConfirmed = true,
                             FirstName = "Michael",
@@ -106,7 +106,7 @@ namespace LownSlow.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MICHAEL@ME.COM",
                             NormalizedUserName = "MICHAEL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC3862nTuSZKm+Y6PhaNQDnsYQf92R6P8xIeqgDFiVC9fsq0E/91dAaNKwRQ9Hxzbw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGHcO8E8Locxc3oxCuCT/A+D8x0keZXr2LJT1BJoJT1VHekLuRwfZ6W3rAn68QiAVw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "j4k6l3k0-d87f-98eh-10kk-2285db796699",
                             TwoFactorEnabled = false,
@@ -964,7 +964,7 @@ namespace LownSlow.Migrations
 
                     b.Property<bool>("Favorite");
 
-                    b.Property<int?>("TechniqueId");
+                    b.Property<int>("TechniqueId");
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -973,8 +973,6 @@ namespace LownSlow.Migrations
                         .IsRequired();
 
                     b.HasKey("RecipeId");
-
-                    b.HasIndex("TechniqueId");
 
                     b.HasIndex("UserId");
 
@@ -1023,7 +1021,7 @@ namespace LownSlow.Migrations
                             Favorite = true,
                             TechniqueId = 2,
                             Title = "Smoked Salamon",
-                            UserId = "11111111-ffff-ffff-ffff-ffffffffffff"
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
 
@@ -1032,6 +1030,8 @@ namespace LownSlow.Migrations
                     b.Property<int>("TechniqueId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -1043,7 +1043,7 @@ namespace LownSlow.Migrations
 
                     b.HasKey("TechniqueId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Technique");
 
@@ -1219,10 +1219,6 @@ namespace LownSlow.Migrations
 
             modelBuilder.Entity("LownSlow.Models.Recipe", b =>
                 {
-                    b.HasOne("LownSlow.Models.Technique", "Technique")
-                        .WithMany()
-                        .HasForeignKey("TechniqueId");
-
                     b.HasOne("LownSlow.Models.ApplicationUser", "User")
                         .WithMany("Recipes")
                         .HasForeignKey("UserId")
@@ -1231,9 +1227,9 @@ namespace LownSlow.Migrations
 
             modelBuilder.Entity("LownSlow.Models.Technique", b =>
                 {
-                    b.HasOne("LownSlow.Models.ApplicationUser", "User")
+                    b.HasOne("LownSlow.Models.ApplicationUser")
                         .WithMany("Techniques")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
