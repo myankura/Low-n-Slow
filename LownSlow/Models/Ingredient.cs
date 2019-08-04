@@ -20,5 +20,10 @@ namespace LownSlow.Models
         public string UserId { get; set; }
 
         public virtual ICollection<IngredientList> IngredientLists { get; set; }
+
+        public static implicit operator Ingredient(List<Ingredient> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
