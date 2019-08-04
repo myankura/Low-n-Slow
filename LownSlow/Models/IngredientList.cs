@@ -22,7 +22,7 @@ namespace LownSlow.Models
         public string Measurement { get; set; }
 
         [Required]
-        public int IngredientId { get; set; }
+        public int? IngredientId { get; set; }
 
         [Required]
         public int RecipeId { get; set; }

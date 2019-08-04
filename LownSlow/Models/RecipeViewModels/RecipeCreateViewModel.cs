@@ -29,7 +29,7 @@ namespace LownSlow.Models.RecipeViewModels
                 return technique;
             }
         }
-        public List<Ingredient> AvailableIngredients { get; set; }
+        /*public List<Ingredient> AvailableIngredients { get; set; }
 
         public List<SelectListItem> IngredientOptions
         {
@@ -44,6 +44,6 @@ namespace LownSlow.Models.RecipeViewModels
                 il.Insert(0, new SelectListItem("Select an ingredient", null));
                 return il;
             }
-        }
+        }*/
     }
 }

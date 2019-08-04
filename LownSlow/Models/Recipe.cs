@@ -17,7 +17,6 @@ namespace LownSlow.Models
         [Required(ErrorMessage = "Please give the recipe a description.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "The recipe must have some directions")]
         public string Directions { get; set; }
 
         public string Comment { get; set; }
