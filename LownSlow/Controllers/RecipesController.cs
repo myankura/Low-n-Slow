@@ -90,7 +90,7 @@ namespace LownSlow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RecipeCreateViewModel viewModel)
         {
-            //I am really proud of this block of code.
+            //This block of code will join the ingredient table with the recipe table
             //Check for current user
             var currentUser = await GetCurrentUserAsync();
 
