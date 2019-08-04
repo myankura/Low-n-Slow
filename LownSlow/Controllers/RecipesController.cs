@@ -73,12 +73,13 @@ namespace LownSlow.Controllers
             /*var currentUser = await GetCurrentUserAsync();*/
 
 
-            /*ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");*/
+            ViewData["IngredientId"] = new SelectList(_context.Ingredient, "IngredientId", "Name");
 
 
             var viewModel = new RecipeCreateViewModel
             {
-                AvailableTech = await _context.Technique.ToListAsync()
+                AvailableTech = await _context.Technique.ToListAsync(),
+                AvailableIngredients = await _context.Ingredient.ToListAsync(),                
             };
 
             return View(viewModel);
@@ -89,62 +90,40 @@ namespace LownSlow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RecipeCreateViewModel viewModel)
         {
+            //I am really proud of this block of code.
             //Check for current user
             var currentUser = await GetCurrentUserAsync();
 
             var recipe = viewModel.Recipe;
-            
+            var ingredient = viewModel.Ingredient;
+            var ingredList = viewModel.IngredientLists;
+                       
+            IngredientList newList = new IngredientList();
+                       
             ModelState.Remove("Recipe.User");
             ModelState.Remove("Recipe.UserId");
-            ModelState.Remove("Recipe.Directions");
-
+            ModelState.Remove("Ingredient.Name");
+            ModelState.Remove("Ingredient.User");
+            ModelState.Remove("IngredientLists.IngredientId");
+            
             if (ModelState.IsValid)
             {
                 recipe.UserId = currentUser.Id;
                 _context.Add(recipe);
+                newList.RecipeId = recipe.RecipeId;
+                newList.IngredientId = ingredient.IngredientId;
+                newList.Quantity = ingredList.Quantity;
+                newList.Measurement = ingredList.Measurement;
+                _context.Add(newList);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
             //Adds a technique to the recipe
             viewModel.AvailableTech = await _context.Technique.ToListAsync();
+            //Add an ingredient to the ingredient list
+            viewModel.AvailableIngredients = await _context.Ingredient.ToListAsync();
 
-            
-
-            /*//Instantiate new recipe from view model
-            *//*var recipe = viewModel.Recipe;*//*
-            //Instantiate new ingredient from view model
-            var ingredient = viewModel.Ingredient;
-
-            //Create a new ingredient list for the recipe
-            var newRecipe = await _context.Recipe.SingleOrDefaultAsync(r => r.User == currentUser && r.TechniqueId == null);
-
-            var recipe = new Recipe();
-
-            if(newRecipe == null)
-            {
-                recipe.UserId = currentUser.Id;
-                _context.Add(recipe);
-                await _context.SaveChangesAsync();
-            }
-
-            IngredientList newIngredientList = new IngredientList();
-
-            newIngredientList.RecipeId = recipe.RecipeId;
-            newIngredientList.IngredientId = ingredient.IngredientId;
-
-            ModelState.Remove("Recipe.User");
-            ModelState.Remove("Recipe.UserId");
-
-            if (ModelState.IsValid)
-            {
-                recipe.UserId = currentUser.Id;
-                _context.Add(recipe);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            viewModel.AvailableTech = await _context.Technique.ToListAsync();*/
             return View(viewModel);
         }
 

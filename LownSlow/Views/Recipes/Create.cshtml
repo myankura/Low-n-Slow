@@ -28,6 +28,21 @@
                 <span asp-validation-for="Recipe.TechniqueId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="IngredientLists.Quantity" class="control-label"></label>
+                <input asp-for="IngredientLists.Quantity" class="form-control" />
+                <span asp-validation-for="IngredientLists.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientLists.Measurement" class="control-label"></label>
+                <input asp-for="IngredientLists.Measurement" class="form-control" />
+                <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.IngredientId" class="control-label"></label>
+                <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
+                <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
