@@ -28,19 +28,19 @@
                 <span asp-validation-for="Recipe.Directions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IngredientList.Quantity" class="control-label"></label>
-                <input asp-for="IngredientList.Quantity" class="form-control" />
-                <span asp-validation-for="IngredientList.Quantity" class="text-danger"></span>
+                <label asp-for="Recipe.Comment" class="control-label"></label>
+                <input asp-for="Recipe.Comment" class="form-control" />
+                <span asp-validation-for="Recipe.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Recipe.Favorite" /> @Html.DisplayNameFor(model => model.Recipe.Favorite)
+                </label>
             </div>
             <div class="form-group">
-                <label asp-for="IngredientList.Measurement" class="control-label"></label>
-                <input asp-for="IngredientList.Measurement" class="form-control" />
-                <span asp-validation-for="IngredientList.Measurement" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.TechniqueId" class="control-label"></label>
-                <select asp-for="Recipe.TechniqueId" class="form-control" asp-items="Model.TechOptions"></select>
-                <span asp-validation-for="Recipe.TechniqueId" class="text-danger"></span>
+                <label asp-for="Recipe.IngredientLists" class="control-label"></label>
+                <select asp-for="Recipe.IngredientLists" class="form-control" asp-items="Model.IngredientOptions"></select>
+                <span asp-validation-for="Recipe.IngredientLists" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

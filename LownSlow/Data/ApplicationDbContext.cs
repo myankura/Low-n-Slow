@@ -237,7 +237,7 @@ namespace LownSlow.Data
                     Comment = "I would recommend this to a friend",
                     Favorite = true,
                     TechniqueId = 2,
-                    UserId = user.Id
+                    UserId = admin.Id
                 }
             );
 
