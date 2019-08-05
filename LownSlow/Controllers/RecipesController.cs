@@ -186,6 +186,10 @@ namespace LownSlow.Controllers
             }
 
             var recipe = await _context.Recipe
+                .Include(r => r.Technique)
+                .Include(r => r.User)
+                .Include(r => r.IngredientLists)
+                .ThenInclude(il => il.IngredientListId)
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
             if (recipe == null)
             {
