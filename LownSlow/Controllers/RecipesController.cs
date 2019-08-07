@@ -268,33 +268,84 @@ namespace LownSlow.Controllers
         // GET: Recipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            //Get current user
+            var currentUser = await GetCurrentUserAsync();
+
+            RecipeEditViewModel viewmodel = new RecipeEditViewModel();
+
+            var recipe = await _context.Recipe.Include(r => r.Technique)
+                                              .Include(r => r.User)
+                                              .Include(r => r.IngredientLists)
+                                              .ThenInclude(il => il.Ingredient)
+                                              .FirstOrDefaultAsync(il => il.UserId == currentUser.Id && il.RecipeId == id);
+
+            viewmodel.Recipe = recipe;
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipe = await _context.Recipe.FindAsync(id);
+            /*var recipe = await _context.Recipe.FindAsync(id);*/
             if (recipe == null)
             {
                 return NotFound();
             }
-            return View(recipe);
+            return View(viewmodel);
         }
 
         // POST: Recipes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Recipe recipe)
+        public async Task<IActionResult> Edit(int id, RecipeEditViewModel viewModel)
         {
+            //Get current user
+            var currentUser = await GetCurrentUserAsync();
+
+            //Create instances of view model
+            var ingredient = viewModel.Ingredient;
+            var ingredientListObj = viewModel.IngredientLists;
+            var recipeObj = viewModel.Recipe;
+
+            //Check to see if the viewmodel is null
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+
+            var recipe = await _context.Recipe.Include(r => r.Technique)
+                                              .Include(r => r.User)
+                                              .Include(r => r.IngredientLists)
+                                              .ThenInclude(il => il.Ingredient)
+                                              .FirstOrDefaultAsync(il => il.UserId == currentUser.Id && il.RecipeId == id);
+
+            viewModel.Recipe = recipe;
+
+            var ingredList = await _context.IngredientList
+                .Include(i => i.Ingredient)
+                .FirstOrDefaultAsync(il => il.RecipeId == id);
+
+            viewModel.IngredientLists = ingredList;
+
             if (id != recipe.RecipeId)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("Ingredient");
+            ModelState.Remove("Recipe.User");
+            ModelState.Remove("Recipe.UserId");
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    recipe.Title = recipeObj.Title;
+                    recipe.Description = recipeObj.Description;
+                    recipe.UserId = currentUser.Id;
+                    recipe.TechniqueId = recipeObj.TechniqueId;
+                    recipe.Directions = recipeObj.Directions;
+                    recipe.Comment = recipeObj.Comment;
                     _context.Update(recipe);
                     await _context.SaveChangesAsync();
                 }

@@ -137,7 +137,7 @@ namespace LownSlow.Controllers
             return View(ingredient);
         }
 
-        // GET: Ingredients/Delete/5
+        /*// GET: Ingredients/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -162,10 +162,11 @@ namespace LownSlow.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ingredient = await _context.Ingredient.FindAsync(id);
+
             _context.Ingredient.Remove(ingredient);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         private bool IngredientExists(int id)
         {

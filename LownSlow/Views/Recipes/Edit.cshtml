@@ -1,4 +1,4 @@
-﻿@model LownSlow.Models.Recipe
+﻿@model LownSlow.Models.RecipeViewModels.RecipeEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,36 +12,49 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="RecipeId" />
+            <input type="hidden" asp-for="Recipe.RecipeId" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Recipe.Title" class="control-label"></label>
+                <input asp-for="Recipe.Title" class="form-control" />
+                <span asp-validation-for="Recipe.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Recipe.Description" class="control-label"></label>
+                <input asp-for="Recipe.Description" class="form-control" />
+                <span asp-validation-for="Recipe.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Directions" class="control-label"></label>
-                <input asp-for="Directions" class="form-control" />
-                <span asp-validation-for="Directions" class="text-danger"></span>
+                <label asp-for="Recipe.Directions" class="control-label"></label>
+                <input asp-for="Recipe.Directions" class="form-control" />
+                <span asp-validation-for="Recipe.Directions" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comment" class="control-label"></label>
                 <input asp-for="Comment" class="form-control" />
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
+            <dd class="col-sm-10">
+                <ul>
+                    @foreach (var item in Model.Recipe.IngredientLists)
+                    {
+                        <li>
+                            @Html.DisplayFor(model => item.Ingredient.Name)
+                            @Html.DisplayFor(model => item.Quantity)
+                            @Html.DisplayFor(model => item.Measurement)
+
+                        </li>
+                    }
+                </ul>
+            </dd>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Favorite" /> @Html.DisplayNameFor(model => model.Favorite)
+                    <input class="form-check-input" asp-for="Recipe.Favorite" /> @Html.DisplayNameFor(model => model.Recipe.Favorite)
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="TechniqueId" class="control-label"></label>
-                <input asp-for="TechniqueId" class="form-control" />
-                <span asp-validation-for="TechniqueId" class="text-danger"></span>
+                <label asp-for="Recipe.Technique.Name" class="control-label"></label>
+                <input asp-for="Recipe.TechniqueId" class="form-control" />
+                <span asp-validation-for="Recipe.TechniqueId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

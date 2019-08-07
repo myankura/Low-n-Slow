@@ -3,20 +3,7 @@
 @{
     ViewData["Title"] = "Build";
 }
-@*@{ 
-    var message="";
-    // Specify validation requirements for different fields.
-    Validation.RequireField("ingredientName", "Please select an ingredient.");
 
-    if (isPost)
-    {
-        if (Validation.IsValid())
-        {
-            var ingredientMsg = Request["ingredientName"];
-            message += @""
-        }
-    }
-}*@
 <h1>Build</h1>
 
 <h4>Recipe</h4>
