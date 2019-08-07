@@ -288,8 +288,8 @@ namespace LownSlow.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "cc4c64c2-3514-424d-9ec7-0aa418426f02", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEP50KapeH12YT4/dzz4I93l6ZxpQ3aXsXANaNgE1rpiEAOHsobkCAUoUaPWN/U8z5A==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" },
-                    { "11111111-ffff-ffff-ffff-ffffffffffff", 0, "2b108ade-368b-4134-b553-35d70d42ac71", "michael@me.com", true, "Michael", "Yankura", false, null, "MICHAEL@ME.COM", "MICHAEL@GMAIL.COM", "AQAAAAEAACcQAAAAEC+S91CEw8osWyWLixeClJz+YVkqRKz8gZQEL+pz388QXLV+ZT0Ko9A2QyRDCLyOLw==", null, false, "j4k6l3k0-d87f-98eh-10kk-2285db796699", false, "michael@gmail.com" }
+                    { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "aa07fd78-9075-4b78-85b1-1a2e4f00c978", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEPrj+H2mlG98S73f9yB7wP3rUS8VRVudSKszvjzHlbN7QN5/IoeSRFEVtDhoDAcOzQ==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" },
+                    { "11111111-ffff-ffff-ffff-ffffffffffff", 0, "1c64c9cb-0d65-4f56-887c-93e9f47da6cf", "michael@me.com", true, "Michael", "Yankura", false, null, "MICHAEL@ME.COM", "MICHAEL@GMAIL.COM", "AQAAAAEAACcQAAAAEPK5VNoR2ystb+I5TqzO0x9Iz9DIRbmz/yTZi50lKn338HrutKcUABZKPxgYcwSnzQ==", null, false, "j4k6l3k0-d87f-98eh-10kk-2285db796699", false, "michael@gmail.com" }
                 });
 
             migrationBuilder.InsertData(

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,8 +22,8 @@ namespace LownSlow.Models
         [Required]
         public string Measurement { get; set; }
 
-        [Required]
-        public int? IngredientId { get; set; }
+        [Required(ErrorMessage = "You have to select an ingredient, you dingus.")]
+        public int IngredientId { get; set; }
 
         [Required]
         public int RecipeId { get; set; }

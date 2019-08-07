@@ -9,6 +9,7 @@ namespace LownSlow.Models
     {
 
         [Key]
+        [Required(ErrorMessage = "You have to select an ingredient, you dingus.")]
         public int IngredientId { get; set; }
 
         [Required(ErrorMessage = "Please name the ingredient")]
@@ -21,9 +22,9 @@ namespace LownSlow.Models
 
         public virtual ICollection<IngredientList> IngredientLists { get; set; }
 
-        public static implicit operator Ingredient(List<Ingredient> v)
+        /*public static implicit operator Ingredient(List<Ingredient> v)
         {
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

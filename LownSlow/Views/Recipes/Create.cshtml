@@ -23,9 +23,14 @@
                 <span asp-validation-for="Recipe.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Recipe.TechniqueId" class="control-label"></label>
+                <label asp-for="Recipe.Technique.Name" class="control-label"></label>
                 <select asp-for="Recipe.TechniqueId" class="form-control" asp-items="Model.TechOptions"></select>
                 <span asp-validation-for="Recipe.TechniqueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Name" class="control-label"></label>
+                <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
+                <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IngredientLists.Quantity" class="control-label"></label>
@@ -36,11 +41,6 @@
                 <label asp-for="IngredientLists.Measurement" class="control-label"></label>
                 <input asp-for="IngredientLists.Measurement" class="form-control" />
                 <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ingredient.IngredientId" class="control-label"></label>
-                <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
-                <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

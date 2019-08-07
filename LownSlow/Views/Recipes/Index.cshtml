@@ -28,38 +28,45 @@
                 @Html.DisplayNameFor(model => model.Favorite)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TechniqueId)
+                @Html.DisplayNameFor(model => model.Technique.Name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Directions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TechniqueId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RecipeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RecipeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RecipeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Directions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Favorite)
+                </td>
+                @*@foreach (var item in Model)
+                {
+                    <td>
+                        @Html.DisplayFor(model => item.Technique.Name)
+                    </td>
+                }*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Technique.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RecipeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.RecipeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RecipeId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
