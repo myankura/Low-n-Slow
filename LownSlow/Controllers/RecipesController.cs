@@ -151,6 +151,7 @@ namespace LownSlow.Controllers
                 .ThenInclude(il => il.Ingredient)
                 .FirstOrDefaultAsync(il => il.RecipeId == id);
 
+            viewModel.Recipe = recipe;
             /*recipe = await _context.Recipe.FindAsync(id);*/
             if (recipe == null)
             {
@@ -161,8 +162,8 @@ namespace LownSlow.Controllers
                 .Include(i => i.Ingredient)
                 .FirstOrDefaultAsync(il => il.RecipeId == id);
 
-            viewModel.Recipe = recipe;
             viewModel.IngredientLists = ingredList;
+
             //Add an ingredient to the ingredient list
             viewModel.AvailableIngredients = await _context.Ingredient.Where(i => i.User.Id == currentUser.Id).ToListAsync();
             viewModel.AvailableTech = await _context.Technique.Where(t => t.User.Id == currentUser.Id).ToListAsync();
@@ -271,7 +272,7 @@ namespace LownSlow.Controllers
             //Get current user
             var currentUser = await GetCurrentUserAsync();
 
-            RecipeEditViewModel viewmodel = new RecipeEditViewModel();
+            RecipeEditViewModel viewModel = new RecipeEditViewModel();
 
             var recipe = await _context.Recipe.Include(r => r.Technique)
                                               .Include(r => r.User)
@@ -279,19 +280,28 @@ namespace LownSlow.Controllers
                                               .ThenInclude(il => il.Ingredient)
                                               .FirstOrDefaultAsync(il => il.UserId == currentUser.Id && il.RecipeId == id);
 
-            viewmodel.Recipe = recipe;
+            viewModel.Recipe = recipe;
+
+            var ingredList = await _context.IngredientList
+                .Include(i => i.Ingredient)
+                .FirstOrDefaultAsync(il => il.RecipeId == id);
+
+            viewModel.IngredientLists = ingredList;
+
+            //Get the dropdowns for ingredients and available techniques
+            viewModel.AvailableIngredients = await _context.Ingredient.Where(i => i.User.Id == currentUser.Id).ToListAsync();
+            viewModel.AvailableTech = await _context.Technique.Where(t => t.User.Id == currentUser.Id).ToListAsync();
 
             if (id == null)
             {
                 return NotFound();
             }
 
-            /*var recipe = await _context.Recipe.FindAsync(id);*/
             if (recipe == null)
             {
                 return NotFound();
             }
-            return View(viewmodel);
+            return View(viewModel);
         }
 
         // POST: Recipes/Edit/5
@@ -306,6 +316,9 @@ namespace LownSlow.Controllers
             var ingredient = viewModel.Ingredient;
             var ingredientListObj = viewModel.IngredientLists;
             var recipeObj = viewModel.Recipe;
+
+            //Instantiate a new list for storage of recipeId and IngredientId
+            IngredientList newList = new IngredientList();
 
             //Check to see if the viewmodel is null
             if (viewModel == null)
@@ -327,44 +340,83 @@ namespace LownSlow.Controllers
 
             viewModel.IngredientLists = ingredList;
 
+            //Get the dropdowns for ingredients and available techniques
+            viewModel.AvailableIngredients = await _context.Ingredient.Where(i => i.User.Id == currentUser.Id).ToListAsync();
+            viewModel.AvailableTech = await _context.Technique.Where(t => t.User.Id == currentUser.Id).ToListAsync();
+
             if (id != recipe.RecipeId)
             {
                 return NotFound();
             }
 
-            ModelState.Remove("Ingredient");
             ModelState.Remove("Recipe.User");
             ModelState.Remove("Recipe.UserId");
+            ModelState.Remove("Ingredient");
+            ModelState.Remove("Ingredient.User");
+            ModelState.Remove("Ingredient.IngredientId");
+            ModelState.Remove("Ingredient.Name");
 
             if (ModelState.IsValid)
             {
-                try
+                //Check to see if the ingredientId is valid. 0 is an invalid value for the ingredientId, if so, prompt a message to alert the user.
+                if (ingredient.IngredientId == 0)
                 {
+                    ModelState.AddModelError("", "You must select an ingredient.");
+                    return RedirectToAction("Edit", new { id = recipe.RecipeId });
+                }
+                //Check to see if the ingredient already exists on the ingredient list, if so, prompt a message to alert the user.
+                else if (viewModel.IngredientLists.IngredientId == ingredient.IngredientId && viewModel.IngredientLists.RecipeId == recipe.RecipeId)
+                {
+                    ModelState.AddModelError("", "This ingredient is already in the recipe.");
+                    return RedirectToAction("Edit", new { id = recipe.RecipeId });
+                }
+                //If both conditions have been passed make all the necessary changes that the user has made to the fields.
+                else
+                {
+                    newList.RecipeId = recipe.RecipeId;
+                    newList.IngredientId = ingredient.IngredientId;
+                    newList.Quantity = ingredientListObj.Quantity;
+                    newList.Measurement = ingredientListObj.Measurement;
                     recipe.Title = recipeObj.Title;
                     recipe.Description = recipeObj.Description;
                     recipe.UserId = currentUser.Id;
                     recipe.TechniqueId = recipeObj.TechniqueId;
                     recipe.Directions = recipeObj.Directions;
+                    recipe.Favorite = recipeObj.Favorite;
                     recipe.Comment = recipeObj.Comment;
                     _context.Update(recipe);
+                    _context.Add(newList);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RecipeExists(recipe.RecipeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                    
                 return RedirectToAction(nameof(Index));
             }
             return View(recipe);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteIngredient(int id, RecipeEditViewModel viewModel)
+        {
+            //Get current user
+            var currentUser = await GetCurrentUserAsync();
+
+            //Create instances of view model
+            var recipe = viewModel.Recipe;
+
+            //Check to see if the viewmodel is null
+            if (viewModel == null)
+            {
+                return NotFound();
+            }
+
+
+            var ingredList = await _context.IngredientList.FindAsync(id);
+            _context.IngredientList.Remove(ingredList);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+            /*return RedirectToAction("Edit", new { recipe.RecipeId });*/
+        }
         // GET: Recipes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

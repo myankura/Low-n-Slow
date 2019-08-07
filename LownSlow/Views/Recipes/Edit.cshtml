@@ -29,23 +29,41 @@
                 <span asp-validation-for="Recipe.Directions" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
-                <span asp-validation-for="Comment" class="text-danger"></span>
+                <label asp-for="Recipe.Comment" class="control-label"></label>
+                <input asp-for="Recipe.Comment" class="form-control" />
+                <span asp-validation-for="Recipe.Comment" class="text-danger"></span>
             </div>
-            <dd class="col-sm-10">
+            <div class="form-group">
+                <label asp-for="Ingredient.Name" class="control-label"></label>
+                <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
+                <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientLists.Quantity" class="control-label"></label>
+                <input asp-for="IngredientLists.Quantity" class="form-control" />
+                <span asp-validation-for="IngredientLists.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientLists.Measurement" class="control-label"></label>
+                <input asp-for="IngredientLists.Measurement" class="form-control" />
+                <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
+            </div>
+            <div class="col-sm-10 form-group">
                 <ul>
                     @foreach (var item in Model.Recipe.IngredientLists)
                     {
                         <li>
-                            @Html.DisplayFor(model => item.Ingredient.Name)
                             @Html.DisplayFor(model => item.Quantity)
                             @Html.DisplayFor(model => item.Measurement)
+                            @Html.DisplayFor(model => item.Ingredient.Name)
+                            <form asp-controller="Recipes" asp-action="DeleteIngredient" asp-route-id="@item.IngredientListId">
+                                <input type="submit" value="Delete" class="btn btn-primary" />
+                            </form>
 
                         </li>
                     }
                 </ul>
-            </dd>
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Recipe.Favorite" /> @Html.DisplayNameFor(model => model.Recipe.Favorite)
@@ -53,7 +71,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Technique.Name" class="control-label"></label>
-                <input asp-for="Recipe.TechniqueId" class="form-control" />
+                <select asp-for="Recipe.TechniqueId" class="form-control" asp-items="Model.TechOptions"></select>
                 <span asp-validation-for="Recipe.TechniqueId" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -48,9 +48,9 @@
                     @foreach (var item in Model.Recipe.IngredientLists)
                     {
                         <li>
-                            @Html.DisplayFor(model => item.Ingredient.Name)
                             @Html.DisplayFor(model => item.Quantity)
                             @Html.DisplayFor(model => item.Measurement)
+                            @Html.DisplayFor(model => item.Ingredient.Name)
 
                         </li>
                     }
