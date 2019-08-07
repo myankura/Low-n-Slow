@@ -62,19 +62,25 @@ namespace LownSlow.Controllers
         }
 
         // POST: Ingredients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IngredientId,Name,UserId")] Ingredient ingredient)
+        public async Task<IActionResult> Create(Ingredient ingredient)
         {
+            //Get current user's UserId.
+            var currentUser = await GetCurrentUserAsync();
+
+            /*ModelState.Remove("Ingredient.User");
+            ModelState.Remove("Ingredient.UserId");*/
+            ModelState.Remove("User");
+           
+
             if (ModelState.IsValid)
             {
+                ingredient.UserId = currentUser.Id;
                 _context.Add(ingredient);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ingredient.UserId);
             return View(ingredient);
         }
 
