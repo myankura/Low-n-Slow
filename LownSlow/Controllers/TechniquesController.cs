@@ -59,14 +59,16 @@ namespace LownSlow.Controllers
         }
 
         // POST: Techniques/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TechniqueId,Name,Description,UserId")] Technique technique)
+        public async Task<IActionResult> Create(Technique technique)
         {
+            //Get current user's UserId.
+            var currentUser = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
             {
+                technique.UserId = currentUser.Id;
                 _context.Add(technique);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
