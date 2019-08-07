@@ -92,6 +92,7 @@ namespace LownSlow.Controllers
             //Check for current user
             var currentUser = await GetCurrentUserAsync();
 
+            //Instantiate instances for recipe, ingredient, and ingredient list
             var recipe = viewModel.Recipe;
             var ingredient = viewModel.Ingredient;
             var ingredList = viewModel.IngredientLists;
@@ -133,12 +134,16 @@ namespace LownSlow.Controllers
             //Get current user
             var currentUser = await GetCurrentUserAsync();
 
+            //instantiate an instance of viewmodel.
             RecipeCreateViewModel viewModel = new RecipeCreateViewModel();
+
+            //Check to see if id is null
             if (id == null)
             {
                 return NotFound();
             }
 
+            //Get the context of Recipe
             var recipe = await _context.Recipe
                 .Include(r => r.Technique)
                 .Include(r => r.User)
