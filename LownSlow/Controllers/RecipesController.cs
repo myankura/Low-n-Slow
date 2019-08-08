@@ -314,7 +314,7 @@ namespace LownSlow.Controllers
             //Get current user
             var currentUser = await GetCurrentUserAsync();
 
-            //Create instances of view model
+            //Create instances of view model for ingredient, ingredientlist, and recipe
             var ingredient = viewModel.Ingredient;
             var ingredientListObj = viewModel.IngredientLists;
             var recipeObj = viewModel.Recipe;
