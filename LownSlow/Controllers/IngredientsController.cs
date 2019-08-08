@@ -110,15 +110,22 @@ namespace LownSlow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IngredientId,Name,UserId")] Ingredient ingredient)
         {
+
+            //Get current user's UserId.
+            var currentUser = await GetCurrentUserAsync();
+
             if (id != ingredient.IngredientId)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    ingredient.User = currentUser;
                     _context.Update(ingredient);
                     await _context.SaveChangesAsync();
                 }
