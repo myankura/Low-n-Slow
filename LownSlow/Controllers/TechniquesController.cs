@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using LownSlow.Data;
 using LownSlow.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LownSlow.Controllers
 {
+    [Authorize]
     public class TechniquesController : Controller
     {
         private readonly ApplicationDbContext _context;
