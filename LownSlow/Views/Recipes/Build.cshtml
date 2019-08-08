@@ -3,20 +3,7 @@
 @{
     ViewData["Title"] = "Build";
 }
-@*@{ 
-    var message="";
-    // Specify validation requirements for different fields.
-    Validation.RequireField("ingredientName", "Please select an ingredient.");
 
-    if (isPost)
-    {
-        if (Validation.IsValid())
-        {
-            var ingredientMsg = Request["ingredientName"];
-            message += @""
-        }
-    }
-}*@
 <h1>Build</h1>
 
 <h4>Recipe</h4>
@@ -56,19 +43,19 @@
                 <input asp-for="IngredientLists.Measurement" class="form-control" />
                 <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
             </div>
-            <dd class="col-sm-10">
+            <div class="col-sm-10">
                 <ul>
                     @foreach (var item in Model.Recipe.IngredientLists)
                     {
                         <li>
-                            @Html.DisplayFor(model => item.Ingredient.Name)
                             @Html.DisplayFor(model => item.Quantity)
                             @Html.DisplayFor(model => item.Measurement)
+                            @Html.DisplayFor(model => item.Ingredient.Name)
 
                         </li>
                     }
                 </ul>
-            </dd>
+            </div>
             <div class="form-group">
                 <label asp-for="Recipe.Directions" class="control-label"></label>
                 <input asp-for="Recipe.Directions" class="form-control" />
