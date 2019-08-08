@@ -48,7 +48,7 @@
                 <input asp-for="IngredientLists.Measurement" class="form-control" />
                 <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
             </div>
-            <div class="col-sm-10 form-group">
+            <div class="col-sm-10">
                 <ul>
                     @foreach (var item in Model.Recipe.IngredientLists)
                     {
@@ -56,11 +56,11 @@
                             @Html.DisplayFor(model => item.Quantity)
                             @Html.DisplayFor(model => item.Measurement)
                             @Html.DisplayFor(model => item.Ingredient.Name)
-                            <form asp-controller="Recipes" asp-action="DeleteIngredient" asp-route-id="@item.IngredientListId">
-                                <input type="submit" value="Delete" class="btn btn-primary" />
-                            </form>
 
                         </li>
+                        <div class="form-group">
+                            <input type="submit" asp-controller="Recipes" asp-action="DeleteIngredient" asp-route-id="@item.IngredientListId" />
+                        </div>
                     }
                 </ul>
             </div>

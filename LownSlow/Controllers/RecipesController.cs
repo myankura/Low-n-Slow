@@ -364,14 +364,13 @@ namespace LownSlow.Controllers
                     ModelState.AddModelError("", "You must select an ingredient.");
                     return RedirectToAction("Edit", new { id = recipe.RecipeId });
                 }
-                //Check to see if the ingredient already exists on the ingredient list, if so, prompt a message to alert the user.
-                else if (viewModel.IngredientLists.IngredientId == ingredient.IngredientId && viewModel.IngredientLists.RecipeId == recipe.RecipeId)
+                else if (ingredient.IngredientId == viewModel.IngredientLists.IngredientId && recipeObj.RecipeId == viewModel.IngredientLists.RecipeId /*&& viewModel.IngredientLists.IngredientListId == ingredList.IngredientListId*/)
                 {
-                    ModelState.AddModelError("", "This ingredient is already in the recipe.");
+                    ModelState.AddModelError("", "This ingredient is already on the recipe.");
                     return RedirectToAction("Edit", new { id = recipe.RecipeId });
                 }
-                //If both conditions have been passed make all the necessary changes that the user has made to the fields.
-                else
+                //Check to see if the ingredient already exists on the ingredient list, if so, prompt a message to alert the user.
+                else if (/*ingredList*/ingredient.IngredientId != /*viewModel.IngredientLists*/ingredList.IngredientId && recipe.RecipeId == viewModel.IngredientLists.RecipeId)
                 {
                     newList.RecipeId = recipe.RecipeId;
                     newList.IngredientId = ingredient.IngredientId;
@@ -387,8 +386,13 @@ namespace LownSlow.Controllers
                     _context.Update(recipe);
                     _context.Add(newList);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Edit", new { id = recipe.RecipeId });
                 }
-                    
+                //If both conditions have been passed make all the necessary changes that the user has made to the fields.
+                else
+                {
+                    return NotFound();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(recipe);
@@ -402,7 +406,12 @@ namespace LownSlow.Controllers
             var currentUser = await GetCurrentUserAsync();
 
             //Create instances of view model
-            var recipe = viewModel.Recipe;
+            var recipeObj = viewModel.Recipe;
+            var ingredientObj = viewModel.Ingredient;
+            var ingrListObj = viewModel.IngredientLists;
+
+            /*//Instantiate a new list so ingredients can be added if necessary
+            var IngredList = viewModel.IngredientLists;*/
 
             //Check to see if the viewmodel is null
             if (viewModel == null)
@@ -410,12 +419,22 @@ namespace LownSlow.Controllers
                 return NotFound();
             }
 
+            /*if (ModelState.IsValid)
+            {
+                newList.RecipeId = recipeObj.RecipeId;
+                newList.IngredientId = ingredientObj.IngredientId;
+                newList.Quantity = ingrListObj.Quantity;
+                newList.Measurement = ingrListObj.Measurement;
+                _context.Add(newList);
+                await _context.SaveChangesAsync();
+            }*/
+
 
             var ingredList = await _context.IngredientList.FindAsync(id);
             _context.IngredientList.Remove(ingredList);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
-            /*return RedirectToAction("Edit", new { recipe.RecipeId });*/
+            /*return RedirectToAction("Edit", new { recipeObj.RecipeId });*/
         }
         // GET: Recipes/Delete/5
         public async Task<IActionResult> Delete(int? id)
