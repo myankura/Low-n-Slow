@@ -9,9 +9,11 @@ using LownSlow.Data;
 using LownSlow.Models;
 using Microsoft.AspNetCore.Identity;
 using LownSlow.Models.RecipeViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LownSlow.Controllers
 {
+    [Authorize]
     public class RecipesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -364,13 +366,13 @@ namespace LownSlow.Controllers
                     ModelState.AddModelError("", "You must select an ingredient.");
                     return RedirectToAction("Edit", new { id = recipe.RecipeId });
                 }
-                else if (ingredient.IngredientId == viewModel.IngredientLists.IngredientId && recipeObj.RecipeId == viewModel.IngredientLists.RecipeId /*&& viewModel.IngredientLists.IngredientListId == ingredList.IngredientListId*/)
+                else if (ingredient.IngredientId == viewModel.IngredientLists.IngredientId && recipeObj.RecipeId == viewModel.IngredientLists.RecipeId)
                 {
                     ModelState.AddModelError("", "This ingredient is already on the recipe.");
                     return RedirectToAction("Edit", new { id = recipe.RecipeId });
                 }
                 //Check to see if the ingredient already exists on the ingredient list, if so, prompt a message to alert the user.
-                else if (/*ingredList*/ingredient.IngredientId != /*viewModel.IngredientLists*/ingredList.IngredientId && recipe.RecipeId == viewModel.IngredientLists.RecipeId)
+                else if (ingredient.IngredientId != ingredList.IngredientId && recipe.RecipeId == viewModel.IngredientLists.RecipeId)
                 {
                     newList.RecipeId = recipe.RecipeId;
                     newList.IngredientId = ingredient.IngredientId;
@@ -393,7 +395,7 @@ namespace LownSlow.Controllers
                 {
                     return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+                /*return RedirectToAction(nameof(Index));*/
             }
             return View(recipe);
         }
@@ -403,7 +405,7 @@ namespace LownSlow.Controllers
         public async Task<IActionResult> DeleteIngredient(int id, RecipeEditViewModel viewModel)
         {
             //Get current user
-            var currentUser = await GetCurrentUserAsync();
+            /*var currentUser = await GetCurrentUserAsync();*/
 
             //Create instances of view model
             var recipeObj = viewModel.Recipe;
@@ -448,8 +450,9 @@ namespace LownSlow.Controllers
                 .Include(r => r.Technique)
                 .Include(r => r.User)
                 .Include(r => r.IngredientLists)
-                .ThenInclude(il => il.IngredientListId)
+                .ThenInclude(il => il.Recipe)
                 .FirstOrDefaultAsync(m => m.RecipeId == id);
+
             if (recipe == null)
             {
                 return NotFound();
@@ -463,11 +466,48 @@ namespace LownSlow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            /*var currentUser = await GetCurrentUserAsync();*/
             var recipe = await _context.Recipe.FindAsync(id);
+            var ingredientLists = _context.IngredientList;
             _context.Recipe.Remove(recipe);
+
+            foreach (IngredientList item in ingredientLists)
+            {
+                if (item.RecipeId == recipe.RecipeId)
+                {
+                    ingredientLists.Remove(item);
+                }
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        /*// POST: Orders/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var user = await GetCurrentUserAsync();
+            var userid = user.Id;
+            var order = await _context.Order.FindAsync(id);
+            var orderProducts = _context.OrderProduct;
+            var products = _context.Product;
+
+
+            foreach (OrderProduct item in orderProducts)
+            {
+                if (item.OrderId == order.OrderId && userid == order.UserId)
+                {
+                    orderProducts.Remove(item);
+                }
+            }
+            if (userid == order.UserId)
+            {
+                _context.Order.Remove(order);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }*/
 
         private bool RecipeExists(int id)
         {
