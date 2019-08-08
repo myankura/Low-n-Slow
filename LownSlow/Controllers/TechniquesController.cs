@@ -101,6 +101,9 @@ namespace LownSlow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TechniqueId,Name,Description,UserId")] Technique technique)
         {
+            //Get current user's UserId.
+            var currentUser = await GetCurrentUserAsync();
+
             if (id != technique.TechniqueId)
             {
                 return NotFound();
@@ -110,6 +113,7 @@ namespace LownSlow.Controllers
             {
                 try
                 {
+                    technique.User = currentUser;
                     _context.Update(technique);
                     await _context.SaveChangesAsync();
                 }
