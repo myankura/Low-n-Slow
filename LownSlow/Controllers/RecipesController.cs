@@ -363,8 +363,17 @@ namespace LownSlow.Controllers
                 //Check to see if the ingredientId is valid. 0 is an invalid value for the ingredientId, if so, prompt a message to alert the user.
                 if (ingredient.IngredientId == 0)
                 {
-                    ModelState.AddModelError("", "You must select an ingredient.");
-                    return RedirectToAction("Edit", new { id = recipe.RecipeId });
+                    /*ModelState.AddModelError("", "You must select an ingredient.");*/
+                    recipe.Title = recipeObj.Title;
+                    recipe.Description = recipeObj.Description;
+                    recipe.UserId = currentUser.Id;
+                    recipe.TechniqueId = recipeObj.TechniqueId;
+                    recipe.Directions = recipeObj.Directions;
+                    recipe.Favorite = recipeObj.Favorite;
+                    recipe.Comment = recipeObj.Comment;
+                    _context.Update(recipe);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", new { id = recipe.RecipeId });
                 }
                 else if (ingredient.IngredientId == viewModel.IngredientLists.IngredientId && recipeObj.RecipeId == viewModel.IngredientLists.RecipeId)
                 {
