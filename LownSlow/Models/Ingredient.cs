@@ -13,6 +13,7 @@ namespace LownSlow.Models
         public int IngredientId { get; set; }
 
         [Required(ErrorMessage = "Please name the ingredient")]
+        [Display(Name ="Ingredient")]
         public string Name { get; set; }
 
         [Required]
