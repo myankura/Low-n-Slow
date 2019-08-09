@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LownSlow.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190807012909_initial")]
+    [Migration("20190808203700_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,7 +82,7 @@ namespace LownSlow.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "aa07fd78-9075-4b78-85b1-1a2e4f00c978",
+                            ConcurrencyStamp = "9fb6f5ac-4b51-4e13-ab6b-4272ce56f264",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -90,7 +90,7 @@ namespace LownSlow.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPrj+H2mlG98S73f9yB7wP3rUS8VRVudSKszvjzHlbN7QN5/IoeSRFEVtDhoDAcOzQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG/fj3/zM7mWC9WgsIAPVgjjnZxHaQluMH4RzNltyeOJYAglbsBVovc3zCELUU2ACw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -100,7 +100,7 @@ namespace LownSlow.Migrations
                         {
                             Id = "11111111-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c64c9cb-0d65-4f56-887c-93e9f47da6cf",
+                            ConcurrencyStamp = "248c1ed3-ffd7-45ab-ad00-e8efed8356f6",
                             Email = "michael@me.com",
                             EmailConfirmed = true,
                             FirstName = "Michael",
@@ -108,7 +108,7 @@ namespace LownSlow.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MICHAEL@ME.COM",
                             NormalizedUserName = "MICHAEL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPK5VNoR2ystb+I5TqzO0x9Iz9DIRbmz/yTZi50lKn338HrutKcUABZKPxgYcwSnzQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN3ylYMrpTxiKPK26E1l9Le8UUCqzYfPMgUDd2HjArwfQjP7+p8wae0YgY7caa7hxw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "j4k6l3k0-d87f-98eh-10kk-2285db796699",
                             TwoFactorEnabled = false,
