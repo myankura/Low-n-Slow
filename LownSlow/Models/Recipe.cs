@@ -31,11 +31,12 @@ namespace LownSlow.Models
         [Required]
         public string UserId { get; set; }
 
+        [Display(Name = "Technique used")]
         public Technique Technique { get; set; }
 
-        
         public int? TechniqueId { get; set; }
 
+        [Display(Name ="Ingredient List")]
         public virtual ICollection<IngredientList> IngredientLists { get; set; }
 
     }
