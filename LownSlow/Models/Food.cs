@@ -20,33 +20,64 @@ namespace LownSlow.Models
         [Display(Name = "Food Type")]
         public string Type { get; set; }
 
-        [Display(Name = "Min. Cooking Time (Minutes)")]
-
+        //Cooking times 
         public int MinCookTime { get; set; }
-
-        [Display(Name = "Max. Cooking Time (Minutes)")]
         public int MaxCookTime { get; set; }
 
-        [Display(Name = "Min. Cooking Temperature (F)")]
-        public int MinCookTemp { get; set; }
-
-        [Display(Name = "Max. Cooking Temperature (F)")]
-        public int MaxCookTemp { get; set; }
-
-        [Display(Name = "Min. Finished Temperature (F)")]
-        public int MinFinishedTemp { get; set; }
-
-        [Display(Name = "Max. Finished Temperature (F)")]
-        public int MaxFinishedTemp { get; set; }
-
-        public string DisplayMinCookTime
+        //Convert Minimum cooking times for each cut of meat to a more friendly format for the user.
+        [Display(Name = "Min. Cooking Time")]
+        public string ConvertMinCookTime
         {
             get
             {
-                MinCookTime.ToString($"{MinCookTime / 60} : {MinCookTime % 60}");
-                return DisplayMinCookTime;
+                var timeInterval = "";
+                if (MinCookTime % 60 < 10)
+                {
+                    timeInterval = $"{MinCookTime / 60}:0{MinCookTime % 60}";
+                }
+                else
+                {
+                    timeInterval = $"{MinCookTime / 60}:{MinCookTime % 60}";
+                }
+                return timeInterval;
             }
-
         }
+
+        //Convert Maximum cooking times for each cut of meat to a more friendly format for the user.
+        [Display(Name = "Max. Cooking Time")]
+        public string ConvertMaxCookTime
+        {
+            get
+            {
+                var timeInterval = "";
+                if (MaxCookTime % 60 < 10)
+                {
+                    timeInterval = $"{MaxCookTime / 60}:0{MaxCookTime % 60}";
+                }
+                else
+                {
+                    timeInterval = $"{MaxCookTime / 60}:{MaxCookTime % 60}";
+                }
+                return timeInterval;
+            }
+        }
+
+        //Format all temperatures into an easier format for the user to read.
+        public int MinCookTemp { get; set; }
+        [Display(Name = "Min. Cooking Temperature")]
+        public string FormatMinCookTemp => $"{MinCookTemp}F";
+
+        public int MaxCookTemp { get; set; }
+        [Display(Name = "Max. Cooking Temperature")]
+        public string FormatMaxCookTemp => $"{MaxCookTemp}F";
+
+        public int MinFinishedTemp { get; set; }
+        [Display(Name = "Min. Finished Temperature")]
+        public string FormatMinFinTemp => $"{MinFinishedTemp}F";
+
+        public int MaxFinishedTemp { get; set; }
+        [Display(Name = "Max. Finished Temperature")]
+        public string FormatMaxFinTemp => $"{MaxFinishedTemp}F";
+
     }
 }
