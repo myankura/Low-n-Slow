@@ -19,62 +19,57 @@
                 @Html.DisplayNameFor(model => model.Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinCookTime)
+                @Html.DisplayNameFor(model => model.ConvertMinCookTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxCookTime)
+                @Html.DisplayNameFor(model => model.ConvertMaxCookTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinCookTemp)
+                @Html.DisplayNameFor(model => model.FormatMinCookTemp)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxCookTemp)
+                @Html.DisplayNameFor(model => model.FormatMaxCookTemp)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinFinishedTemp)
+                @Html.DisplayNameFor(model => model.FormatMinFinTemp)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxFinishedTemp)
+                @Html.DisplayNameFor(model => model.FormatMaxFinTemp)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinCookTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxCookTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinCookTemp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxCookTemp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinFinishedTemp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxFinishedTemp)
-            </td>
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.FoodId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FoodId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FoodId">Delete</a>
-            </td>*@
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <b>@Html.DisplayFor(modelItem => item.Name)</b>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConvertMinCookTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConvertMaxCookTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormatMinCookTemp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormatMaxCookTemp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormatMinFinTemp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FormatMaxFinTemp)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
