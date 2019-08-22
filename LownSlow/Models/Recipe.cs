@@ -22,7 +22,7 @@ namespace LownSlow.Models
         public string Comment { get; set; }
 
         [Required]
-        [Display(Name = "Favorite Recipe")]
+        /*[Display(Name = "Favorite Recipe")]*/
         public bool Favorite { get; set; }
 
         [Required]
