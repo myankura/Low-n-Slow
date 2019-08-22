@@ -9,7 +9,7 @@ namespace LownSlow.Models
     {
 
         [Key]
-        [Required(ErrorMessage = "You have to select an ingredient, you dingus.")]
+        [Required]
         public int IngredientId { get; set; }
 
         [Required(ErrorMessage = "Please name the ingredient")]

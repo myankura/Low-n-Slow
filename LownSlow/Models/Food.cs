@@ -24,13 +24,15 @@ namespace LownSlow.Models
         public int MinCookTime { get; set; }
         public int MaxCookTime { get; set; }
 
+        //declare a string variable to hold timeInterval
+        public string  timeInterval = "";
+        
         //Convert Minimum cooking times for each cut of meat to a more friendly format for the user.
         [Display(Name = "Min. Cooking Time")]
         public string ConvertMinCookTime
         {
             get
             {
-                var timeInterval = "";
                 if (MinCookTime % 60 < 10)
                 {
                     timeInterval = $"{MinCookTime / 60}:0{MinCookTime % 60}";
@@ -49,7 +51,6 @@ namespace LownSlow.Models
         {
             get
             {
-                var timeInterval = "";
                 if (MaxCookTime % 60 < 10)
                 {
                     timeInterval = $"{MaxCookTime / 60}:0{MaxCookTime % 60}";

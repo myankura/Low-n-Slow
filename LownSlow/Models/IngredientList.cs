@@ -17,12 +17,12 @@ namespace LownSlow.Models
         public Recipe Recipe { get; set; }
 
         [Required]
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
 
         [Required]
         public string Measurement { get; set; }
 
-        [Required(ErrorMessage = "You have to select an ingredient, you dingus.")]
+        [Required]
         public int IngredientId { get; set; }
 
         [Required]
