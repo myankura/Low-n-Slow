@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -23,9 +22,5 @@ namespace LownSlow.Models
 
         public virtual ICollection<IngredientList> IngredientLists { get; set; }
 
-        /*public static implicit operator Ingredient(List<Ingredient> v)
-        {
-            throw new NotImplementedException();
-        }*/
     }
 }

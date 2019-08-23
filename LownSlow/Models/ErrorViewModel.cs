@@ -1,5 +1,3 @@
-using System;
-
 namespace LownSlow.Models
 {
     public class ErrorViewModel
