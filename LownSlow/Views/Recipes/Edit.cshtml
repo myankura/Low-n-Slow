@@ -4,12 +4,12 @@
     ViewData["Title"] = "Edit";
 }
 
-    <h1>Edit @Html.DisplayFor(model => model.Recipe.Title)</h1>
+<h1>Edit @Html.DisplayFor(model => model.Recipe.Title)</h1>
 
 <h4>Recipe</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Recipe.RecipeId" />
@@ -38,28 +38,28 @@
                 <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
                 <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group form-inline">
                 <label asp-for="IngredientLists.Quantity" class="control-label"></label>
-                <input asp-for="IngredientLists.Quantity" class="form-control" />
+                <input size="2" asp-for="IngredientLists.Quantity" class="form-control" />
                 <span asp-validation-for="IngredientLists.Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="IngredientLists.Measurement" class="control-label"></label>
                 <input asp-for="IngredientLists.Measurement" class="form-control" />
                 <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
+                
+                <input type="submit" value="Add Ingredient" class="btn btn-primary" />
             </div>
+            
             <div class="col-sm-10">
                 <ul>
                     @foreach (var item in Model.Recipe.IngredientLists)
                     {
-                        <li>
-                            @Html.DisplayFor(model => item.Quantity)
-                            @Html.DisplayFor(model => item.Measurement)
-                            @Html.DisplayFor(model => item.Ingredient.Name)
-
-                        </li>
-                        <div class="form-group">
-                            <input type="submit" value="Delete Ingredient" asp-controller="Recipes" asp-action="DeleteIngredient" asp-route-id="@item.IngredientListId" />
+                        <div class="form-group form-inline">
+                            <li>
+                                @Html.DisplayFor(model => item.Quantity)
+                                @Html.DisplayFor(model => item.Measurement)
+                                @Html.DisplayFor(model => item.Ingredient.Name)
+                                <input type="submit" value="Delete" class="btn btn-primary" />
+                            </li>
                         </div>
                     }
                 </ul>
