@@ -9,9 +9,9 @@
     padding: 10px;
 }
 
-    .form-inline > * {
-        margin: 0px 10px 0px 0px;
-    }
+.form-inline > * {
+    margin: 0px 10px 0px 0px;
+}
 
 /*Resize the ingredient drop down*/
 .ingredient-select {
@@ -22,10 +22,9 @@
     width: 500px;
 }
 
-.landing-image {
+/*.landing-image {
     height: 500px;
-}
-
-.navbar {
+}*/
+.navbar{
     background-color: lightgray;
 }
