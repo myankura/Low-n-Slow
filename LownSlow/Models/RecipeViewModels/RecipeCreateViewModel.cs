@@ -1,7 +1,4 @@
-﻿using LownSlow.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,10 +9,13 @@ namespace LownSlow.Models.RecipeViewModels
     public class RecipeCreateViewModel
     {
         public Recipe Recipe { get; set; }
+
         public string Directions { get; set; }
+
         public string Comment { get; set; }
-        [Required(ErrorMessage = "You have to select an ingredient, you dingus.")]
+   
         public Ingredient Ingredient { get; set; }
+
         public IngredientList IngredientLists { get; set; }
 
         public List<Technique> AvailableTech { get; set; }

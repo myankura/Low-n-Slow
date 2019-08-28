@@ -1,0 +1,30 @@
+﻿body {
+    background-image: url("../images/Smokin-background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-inline {
+    padding: 10px;
+}
+
+.form-inline > * {
+    margin: 0px 10px 0px 0px;
+}
+
+/*Resize the ingredient drop down*/
+.ingredient-select {
+    width: 200px;
+}
+
+.recipe {
+    width: 500px;
+}
+
+/*.landing-image {
+    height: 500px;
+}*/
+.navbar{
+    background-color: lightgray;
+}
