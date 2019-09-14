@@ -10,7 +10,6 @@ namespace LownSlow.Models.RecipeViewModels
         public Recipe Recipe { get; set; }
         public string Directions { get; set; }
         public string Comment { get; set; }
-        [Required(ErrorMessage = "You have to select an ingredient, you dingus.")]
         public Ingredient Ingredient { get; set; }
         public IngredientList IngredientLists { get; set; }
 
@@ -46,5 +45,8 @@ namespace LownSlow.Models.RecipeViewModels
                 return il;
             }
         }
+        /*
+        public List<IngredientList> AvailableMeasures { get; set; }*/
+        
     }
 }
