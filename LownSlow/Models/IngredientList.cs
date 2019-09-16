@@ -20,22 +20,7 @@ namespace LownSlow.Models
         [Required]
         public string Measurement { get; set; }
 
-        public static IEnumerable<SelectListItem> GetMeasuresList()
-        {
-            IList<SelectListItem> items = new List<SelectListItem>
-            {
-            new SelectListItem() {Text="Teaspoon", Value="Teaspoon"},
-            new SelectListItem() {Text="Tablespoon", Value="Tablespoon"},
-            new SelectListItem() {Text="Cup", Value="Cup"},
-            new SelectListItem() {Text="Ounce", Value="Ounce"},
-            new SelectListItem() {Text="Pint", Value="Pint"},
-            new SelectListItem() {Text="Quart", Value="Quart"},
-            new SelectListItem() {Text="Pound", Value="Pound"},
-            new SelectListItem() {Text="Gallon", Value="Gallon"},
-            };
-            return items;
-        }
-        /*public static List<SelectListItem> Measures = new List<SelectListItem>()
+        public static List<SelectListItem> GetMeasuresList = new List<SelectListItem>()
         {
             new SelectListItem() {Text="Teaspoon", Value="Teaspoon"},
             new SelectListItem() {Text="Tablespoon", Value="Tablespoon"},
@@ -45,7 +30,7 @@ namespace LownSlow.Models
             new SelectListItem() {Text="Quart", Value="Quart"},
             new SelectListItem() {Text="Pound", Value="Pound"},
             new SelectListItem() {Text="Gallon", Value="Gallon"},
-        };*/
+        };
 
         [Required]
         public int IngredientId { get; set; }

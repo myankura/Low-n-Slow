@@ -117,7 +117,7 @@ namespace LownSlow.Controllers
                 newList.Measurement = ingredList.Measurement;
                 _context.Add(newList);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Build", new { id = recipe.RecipeId, Recip = viewModel });
+                return RedirectToAction("Build", new { id = recipe.RecipeId, Recipe = viewModel });
             }
 
 
@@ -414,15 +414,10 @@ namespace LownSlow.Controllers
         public async Task<IActionResult> DeleteIngredient(int id, RecipeEditViewModel viewModel)
         {
             //Get current user
-            /*var currentUser = await GetCurrentUserAsync();*/
+            var currentUser = await GetCurrentUserAsync();
 
-            /*//Create instances of view model
+            //Create instances of view model
             var recipeObj = viewModel.Recipe;
-            var ingredientObj = viewModel.Ingredient;
-            var ingrListObj = viewModel.IngredientLists;*/
-
-            /*//Instantiate a new list so ingredients can be added if necessary
-            var IngredList = viewModel.IngredientLists;*/
 
             //Check to see if the viewmodel is null
             if (viewModel == null)
@@ -430,23 +425,12 @@ namespace LownSlow.Controllers
                 return NotFound();
             }
 
-            /*if (ModelState.IsValid)
-            {
-                newList.RecipeId = recipeObj.RecipeId;
-                newList.IngredientId = ingredientObj.IngredientId;
-                newList.Quantity = ingrListObj.Quantity;
-                newList.Measurement = ingrListObj.Measurement;
-                _context.Add(newList);
-                await _context.SaveChangesAsync();
-            }*/
-
-
             var ingredList = await _context.IngredientList.FindAsync(id);
             _context.IngredientList.Remove(ingredList);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-            /*return RedirectToAction("Edit", new { recipeObj.RecipeId });*/
+            return RedirectToAction("Edit", new { id = recipeObj.RecipeId });
         }
+
         // GET: Recipes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -490,33 +474,6 @@ namespace LownSlow.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        /*// POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var user = await GetCurrentUserAsync();
-            var userid = user.Id;
-            var order = await _context.Order.FindAsync(id);
-            var orderProducts = _context.OrderProduct;
-            var products = _context.Product;
-
-
-            foreach (OrderProduct item in orderProducts)
-            {
-                if (item.OrderId == order.OrderId && userid == order.UserId)
-                {
-                    orderProducts.Remove(item);
-                }
-            }
-            if (userid == order.UserId)
-            {
-                _context.Order.Remove(order);
-            }
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
-        }*/
 
         private bool RecipeExists(int id)
         {

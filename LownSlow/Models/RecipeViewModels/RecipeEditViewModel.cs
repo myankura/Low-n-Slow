@@ -45,8 +45,5 @@ namespace LownSlow.Models.RecipeViewModels
                 return il;
             }
         }
-        /*
-        public List<IngredientList> AvailableMeasures { get; set; }*/
-        
     }
 }
