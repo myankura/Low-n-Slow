@@ -8,7 +8,7 @@
 <hr />
 <div class="card">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-auto">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -26,32 +26,27 @@
                     <select asp-for="Recipe.TechniqueId" class="form-control" asp-items="Model.TechOptions"></select>
                     <span asp-validation-for="Recipe.TechniqueId" class="text-danger"></span>
                 </div>
-                <div>
-                    <div class="form-group">
-                        <label asp-for="Ingredient.Name" class="control-label"></label>
-                        <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
-                        <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-inline">
-                        <label asp-for="IngredientLists.Quantity" class="control-label"></label>
-                        <input size="2" asp-for="IngredientLists.Quantity" class="form-control" />
-                        <span asp-validation-for="IngredientLists.Quantity" class="text-danger"></span>
-
-                        <label asp-for="IngredientLists.Measurement" class="control-label"></label>
-                        <input size="24" asp-for="IngredientLists.Measurement" class="form-control" />
-                        <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
-                    </div>
+                <div class="form-group form-inline">
+                    <label asp-for="Ingredient.Name" class="control-label"></label>
+                    <select asp-for="Ingredient.IngredientId" class="form-control" asp-items="Model.IngredientOptions"></select>
+                    <span asp-validation-for="Ingredient.IngredientId" class="text-danger"></span>
+                    <label asp-for="IngredientLists.Quantity" class="control-label"></label>
+                    <input size="2" asp-for="IngredientLists.Quantity" class="form-control" />
+                    <span asp-validation-for="IngredientLists.Quantity" class="text-danger"></span>
+                    <label asp-for="IngredientLists.Measurement" class="control-label"></label>
+                    @Html.DropDownListFor(x => x.IngredientLists.Measurement, IngredientList.GetMeasuresList)
+                    <span asp-validation-for="IngredientLists.Measurement" class="text-danger"></span>
+                    <input type="submit" value="Add Ingredient" class="btn btn-primary" />
                 </div>
-
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </form>
         </div>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
 @section Scripts {
